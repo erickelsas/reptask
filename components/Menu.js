@@ -86,7 +86,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#2E3E75',
         borderRadius: 12,
         position: 'absolute',
-        zIndex: 1,
         transition: 'all 0.3s ease-in-out'
     },
     menuIcon:{
@@ -94,6 +93,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flex: 0.25,
-        zIndex: 2,
+        elevation:60,
+        zIndex:1
     },
 })

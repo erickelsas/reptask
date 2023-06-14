@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import Menu from './components/Menu';
 import ParticipantPhoto from './components/ParticipantPhotoBubble';
 import NumberPhotoBubble from './components/NumberPhotoBubble';
@@ -7,6 +7,8 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from 'react';
 import BubbleVector from './components/BubbleVector';
+import ProfileHeader from './components/ProfileHeader';
+import StartAuctionScreen from './screens/StartAuctionScreen';
 
 SplashScreen.preventAutoHideAsync();
 export default function App() {
@@ -39,24 +41,23 @@ export default function App() {
   const participantVector = [{id:0, url: 'https://images.unsplash.com/photo-1676385901160-a86dc9ccdfe1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=486&q=80'}, {id:1, url:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80'}, {id:2, url:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=464&q=80'}, {id:3, url:'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80'}, ];
 
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
-      <View style={{flex:0.9, width:'90%', alignItems:'center', justifyContent:'center'}}>
-        <BubbleVector style={{width:'100%'}} participantVector={participantVector}/>
+    <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
+      <View style={{flex:0.9, width:'100%', alignItems:'center', justifyContent:'center'}}>
+        <StartAuctionScreen/>
       </View>
       <Menu style={styles.menu} selected='trophy'/>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop:'10%',
-    backgroundColor: '#fff',
+    backgroundColor: '#E9E9E9',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'flex-end',
   },
   menu: {
-    flex: 0.1,
+    flex: 1
   }
 });
