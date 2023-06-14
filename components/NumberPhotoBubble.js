@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         shadowColor:'#000',
-        elevation:20,
+        elevation:10,
     },
     text:{
         color:'#FFF',

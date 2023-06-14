@@ -20,6 +20,6 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: '#36457D',
         shadowColor:'#000',
-        elevation:20,
+        elevation:10,
     }
 })
