@@ -5,7 +5,7 @@ const PatternButton = (props) => {
 
   return (
     <View>
-      <Button style={styles.blueButton}> {props.children}</Button>
+      <Button style={styles.blueButton} color="#36457D" title={props.buttonConfig.title} onPress={props.onPressButton}></Button>
     </View>
   )
 }
@@ -14,11 +14,9 @@ export default PatternButton
 
 const styles = StyleSheet.create({
     blueButton: {
-        backgroundColor: '#36457D',
         color: '#f2f3f4',
-        width: 60,
-        height: 5,
-        borderRadius: 8,
+        width: '100%',
+        borderRadius: 2,
         fontSize: 16,
         fontFamily: 'Roboto-Bold',
     }

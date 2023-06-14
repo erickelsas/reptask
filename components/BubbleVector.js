@@ -8,7 +8,9 @@ const BubbleVector = (props) => {
     const [participantVectorWithThree, setParticipantVectorWithThree] = useState(props.participantVector.slice(0,3));
 
     useEffect(() => {
-        setParticipantVectorWithThree(props.participantVector.slice(0, 3));
+        if(props.participantVector != []){
+          setParticipantVectorWithThree(props.participantVector.slice(0, 3));
+        }
     }, [props]);
 
   return (

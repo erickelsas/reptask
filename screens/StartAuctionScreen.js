@@ -5,6 +5,8 @@ import ScreenBoard from '../components/ScreenBoard'
 import PageTitle from '../components/PageTitle'
 import TaskNameAndMinimum from '../components/TaskNameAndMinimum'
 import InputText from '../components/InputText'
+import PatternButton from '../components/PatternButton'
+import BubbleVector from '../components/BubbleVector'
 
 const StartAuctionScreen = () => {
     const [minimum, setMinimum] = useState('');
@@ -13,6 +15,13 @@ const StartAuctionScreen = () => {
             setMinimum(e.value);
         }
     }
+
+    const onPressHandle = () => {
+
+    }
+
+    const participantsVector = [{id:0, url: 'https://images.unsplash.com/photo-1676385901160-a86dc9ccdfe1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=486&q=80'}, {id:1, url:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80'}, {id:2, url:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=464&q=80'}, {id:3, url:'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80'}, ];
+
   return (
     <View style={styles.screen}>
         <ProfileHeader user={{name:'Luísa', url:'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'}} style={styles.header}/>
@@ -23,7 +32,14 @@ const StartAuctionScreen = () => {
                 <View style={styles.line}></View>
                 <View style={styles.form}>
                     <InputText inputConfig={{secure:false, onChange:onChangeTextHandle, value:minimum, keyboardType:"numeric"}}/>
+                    <View style={{width:'60%', display:'flex', justifyContent:'center', alignItems:'center', marginLeft:'20%'}}>
+                        <PatternButton buttonConfig={{title:'Iniciar leilão', onPressButton:onPressHandle}}></PatternButton>
+                    </View>
                 </View>
+            </View>
+            <View style={styles.participantsContainer}>
+                <Text style={styles.participantsTitle}>Participantes</Text>
+                <BubbleVector participantVector={participantsVector}/>
             </View>
         </ScreenBoard>
     </View>
@@ -43,8 +59,9 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     block:{
-        width:'95%',
-        height:'100%',
+        width:'90%',
+        height:'40%',
+        marginTop:'10%',
     },
     line:{
         borderBottomColor: '#D9D9D9',
@@ -57,5 +74,15 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         marginLeft:'10%',
         marginTop:'7.5%'
+    },
+    participantsContainer:{
+        width:'100%',
+        height:'40%'
+    },
+    participantsTitle:{
+        fontFamily:'Roboto-Bold',
+        fontSize:20,
+        color:'#000',
+        paddingBottom:'7.5%'
     }
 })
