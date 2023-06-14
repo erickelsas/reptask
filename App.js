@@ -9,6 +9,7 @@ import { useCallback } from 'react';
 import BubbleVector from './components/BubbleVector';
 import ProfileHeader from './components/ProfileHeader';
 import StartAuctionScreen from './screens/StartAuctionScreen';
+import AdminCadastrarCasaScreen from './screens/AdminCadastrarCasaScreen';
 
 SplashScreen.preventAutoHideAsync();
 export default function App() {
