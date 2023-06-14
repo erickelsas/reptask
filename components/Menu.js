@@ -77,6 +77,8 @@ const styles = StyleSheet.create({
         position: 'relative',
         borderTopLeftRadius: 16,
         borderTopRightRadius: 16,
+        shadowColor:'#000',
+        elevation: 20,
     },
     backgroundIcon:{
         flex: 0.25,
