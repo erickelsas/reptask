@@ -4,7 +4,9 @@ import React from 'react'
 const ScreenBoard = (props) => {
   return (
     <View style={styles.container}>
-      {props.children}
+        <View style={styles.content}>
+            {props.children}
+        </View>
     </View>
   )
 }
@@ -22,5 +24,12 @@ const styles = StyleSheet.create({
         height:'90%',
         marginBottom: '-5%',
         marginTop: '15%'
+    },
+    content:{
+        width:'100%',
+        height:'97%',
+        paddingTop:'7.5%',
+        paddingBottom: '5%',
+        paddingHorizontal: '7.5%'
     }
 })

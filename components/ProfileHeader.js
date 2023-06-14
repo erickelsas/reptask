@@ -7,7 +7,7 @@ const ProfileHeader = (props) => {
   return (
     <View style={styles.component}>
       <View style={styles.container}>
-        <View style={styles.content}><Icon name={'mail-unread-outline'} size={28} color={'#000000'}/></View>
+        <TouchableOpacity style={styles.content}><Icon name={'mail-unread-outline'} size={28} color={'#000000'}/></TouchableOpacity>
         <View style={{...styles.content, ...styles.textContent}}>
             <Text style={styles.textTitle}>{props.user.name}</Text>
             <Text>{`${date.toLocaleDateString()}`}</Text>
