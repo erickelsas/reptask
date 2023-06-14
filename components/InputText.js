@@ -5,7 +5,8 @@ export default function InputText(props) {
   return (
     <View style={styles.view}>
       <Text style={styles.text}>{props.children}</Text>
-      <TextInput secureTextEntry={props.inputConfig.secure} style={styles.input} onChange={props.inputConfig.onChangeText} value={props.inputConfig.text} placeholder={props.inputConfig.placeholder}></TextInput>
+      {'keyboardType' in props.inputConfig && <TextInput secureTextEntry={props.inputConfig.secure} style={styles.input} onChange={(e) => {props.inputConfig.onChange(e)}} value={props.inputConfig.value} placeholder={props.inputConfig.placeholder} keyboardType={props.inputConfig.keyboardType}/>}
+      {!('keyboardType' in props.inputConfig) && <TextInput secureTextEntry={props.inputConfig.secure} style={styles.input} onChange={(e) => {props.inputConfig.onChange(e)}} value={props.inputConfig.value} placeholder={props.inputConfig.placeholder}/>}
     </View>
   )
 }
@@ -22,9 +23,10 @@ const styles = StyleSheet.create({
     },
     input:{
       backgroundColor: "#f1f2f3",
-      width: 60,
-      border:'none',
+      width: '100%',
       borderRadius: 8,
-      padding: 6
+      padding: 6,
+      elevation:10,
+      shadowColor:'#ccc'
     }
 })

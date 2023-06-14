@@ -30,6 +30,10 @@ const styles = StyleSheet.create({
         height:'97%',
         paddingTop:'7.5%',
         paddingBottom: '5%',
-        paddingHorizontal: '7.5%'
+        paddingHorizontal: '7.5%',
+        display:'flex',
+        flexDirection:'column',
+        justifyContent:'space-between',
+        alignItems:'center'
     }
 })
