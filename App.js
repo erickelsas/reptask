@@ -43,7 +43,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
       <View style={{flex:0.9, width:'100%', alignItems:'center', justifyContent:'center'}}>
-        <ResultAuctionScreen/>
+        <StartAuctionScreen/>
       </View>
       <Menu style={styles.menu} selected='trophy'/>
     </SafeAreaView>
