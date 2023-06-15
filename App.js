@@ -5,15 +5,24 @@ import ParticipantPhoto from './components/ParticipantPhotoBubble';
 import NumberPhotoBubble from './components/NumberPhotoBubble';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import BubbleVector from './components/BubbleVector';
 import ProfileHeader from './components/ProfileHeader';
 import StartAuctionScreen from './screens/StartAuctionScreen';
+
+import ResultAuctionScreen from './screens/ResultAuctionScreen';
+import EditTaskScreen from './screens/EditTaskScreen';
+import LoginScreen from './screens/LoginScreen';
+import SignUpScreen from './screens/SignUpScreen';
+import AccountTypeScreen from './screens/AccountTypeScreen';
+import AcessHouseScreen from './screens/AcessHouseScreen';
 import AdminCadastrarCasaScreen from './screens/AdminCadastrarCasaScreen';
 import ResultAuctionScreen from './screens/ResultAuctionScreen'
 
+
 SplashScreen.preventAutoHideAsync();
 export default function App() {
+  const [menu, setMenu] = useState(false);
   
   const [fontsLoaded] = useFonts({
     'Inter-Bold': require('./assets/fonts/Inter-Bold.ttf'),
@@ -46,7 +55,7 @@ export default function App() {
       <View style={{flex:0.9, width:'100%', alignItems:'center', justifyContent:'center'}}>
         <AdminCadastrarCasaScreen/>
       </View>
-      <Menu style={styles.menu} selected='trophy'/>
+      {menu && <Menu style={styles.menu} selected='trophy'/>}
     </SafeAreaView>
   );
 }
@@ -59,6 +68,18 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   menu: {
-    flex: 1
+    flex: 0.1
+  },
+  viewWithMenu:{
+    flex:0.9, 
+    width:'100%', 
+    alignItems:'center', 
+    justifyContent:'center'
+  },
+  viewWithoutMenu:{
+    flex:1, 
+    width:'100%', 
+    alignItems:'center', 
+    justifyContent:'center'
   }
 });

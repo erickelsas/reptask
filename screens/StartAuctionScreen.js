@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View} from 'react-native'
+import { KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, StyleSheet, Text, View} from 'react-native'
 import React, { useState } from 'react'
 import ProfileHeader from '../components/ProfileHeader'
 import ScreenBoard from '../components/ScreenBoard'
@@ -25,20 +25,28 @@ const StartAuctionScreen = () => {
         <ProfileHeader user={{name:'Luísa', url:'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'}} style={styles.header}/>
         <ScreenBoard style={styles.board}>
             <PageTitle text={{title:'Inicie o leilão', subtitle:'Informe a pontuação que os usuários podem utilizar para essa tarefa'}}/>
-            <View style={styles.block}>
-                <TaskNameAndMinimum task={{name:'Tirar o lixo', minimum:null}}/>
-                <View style={styles.line}></View>
-                <View style={styles.form}>
-                    <InputText inputConfig={{secure:false, onChange:onChangeTextHandle, value:minimum, keyboardType:"numeric"}}/>
-                    <View style={{width:'60%', display:'flex', justifyContent:'center', alignItems:'center', marginLeft:'20%'}}>
-                        <PatternButton buttonConfig={{title:'Iniciar leilão', onPressButton:onPressHandle}}></PatternButton>
-                    </View>
-                </View>
-            </View>
-            <View style={styles.participantsContainer}>
-                <Text style={styles.participantsTitle}>Participantes</Text>
-                <BubbleVector participantVector={participantsVector}/>
-            </View>
+            <KeyboardAvoidingView 
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={{flex:1, width:'100%'}}>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
+                    <>
+                        <View style={styles.block}>
+                            <TaskNameAndMinimum task={{name:'Tirar o lixo', minimum:null}}/>
+                            <View style={styles.line}></View>
+                            <View style={styles.form}>
+                                <InputText inputConfig={{secure:false, onChange:onChangeTextHandle, value:minimum, keyboardType:"numeric"}}/>
+                                <View style={{width:'60%', display:'flex', justifyContent:'center', alignItems:'center', marginLeft:'20%'}}>
+                                    <PatternButton buttonConfig={{title:'Iniciar leilão', onPressButton:onPressHandle}}></PatternButton>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={styles.participantsContainer}>
+                            <Text style={styles.participantsTitle}>Participantes</Text>
+                            <BubbleVector participantVector={participantsVector}/>
+                        </View>
+                    </>
+                </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
         </ScreenBoard>
     </View>
   )
@@ -60,6 +68,7 @@ const styles = StyleSheet.create({
         width:'90%',
         height:'40%',
         marginTop:'10%',
+        marginLeft:'5%',
     },
     line:{
         borderBottomColor: '#D9D9D9',
@@ -72,11 +81,11 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         marginLeft:'10%',
         marginTop: '7.5%',
-        marginTop:'0%',
     },
     participantsContainer:{
         width:'100%',
-        height:'40%'
+        height:'50%',
+        marginTop: '15%'
     },
     participantsTitle:{
         fontFamily:'Roboto-Bold',
