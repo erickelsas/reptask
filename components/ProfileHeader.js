@@ -1,15 +1,15 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 const ProfileHeader = (props) => {
     const date = new Date();
   return (
     <View style={styles.component}>
       <View style={styles.container}>
-        <TouchableOpacity style={styles.content}><Icon name={'mail-unread-outline'} size={28} color={'#000000'}/></TouchableOpacity>
+        <TouchableOpacity style={styles.content}><Icon name={'gear'} size={28} color={'#000000'}/></TouchableOpacity>
         <View style={{...styles.content, ...styles.textContent}}>
-            <Text style={styles.textTitle}>{props.user.name}</Text>
+            <Text style={styles.textTitle} numberOfLines={1}>{props.user.name}</Text>
             <Text>{`${date.toLocaleDateString()}`}</Text>
         </View>
         <View style={styles.content}>
@@ -57,11 +57,11 @@ const styles = StyleSheet.create({
         display:'flex',
         justifyContent:'center',
         alignItems:'center',
-        elevation: 20,
+        elevation: 10,
         shadowColor:'#000'
     },
     textTitle:{
-        fontSize:20,
+        fontSize:18,
         fontFamily:'Roboto-Bold',
         color:'#000',
     },

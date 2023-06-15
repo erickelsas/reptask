@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View, TouchableOpacity, Animated, useWindowDimensions } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/FontAwesome5'
 
 const Menu = () => {
     const {width} = useWindowDimensions();
 
     const [left, setLeft] = useState(width * 0.095);
-    const [selected, setSelected] = useState('trophy');
+    const [selected, setSelected] = useState('podium');
 
     const [moveAnimation] = useState(new Animated.Value(width * 0.095));
 
@@ -17,14 +17,14 @@ const Menu = () => {
             moveAnimation,
             {
                 toValue:left,
-                duration: 600,
+                duration: 300,
                 useNativeDriver: false,
             }
         ).start();        
     }, [left]);
 
     useEffect(() => {
-        if(selected == 'trophy'){
+        if(selected == 'podium'){
             setLeft(width * 0.095);
         }
 
@@ -36,7 +36,7 @@ const Menu = () => {
             setLeft(width * 0.5425);
         }
 
-        if(selected == 'settings'){
+        if(selected == 'home'){
             setLeft(width * 0.7725);
         }
     }, [selected])
@@ -47,17 +47,17 @@ const Menu = () => {
 
     return (
     <View style={styles.menu}>
-      <TouchableOpacity  style={styles.menuIcon} onPress={() => {setSelected('trophy')}}>
-            {icon('trophy', 28, '#333', '#E7E7E7', selected == 'trophy' ? true:false)}
+        <TouchableOpacity style={styles.menuIcon} onPress={() => {setSelected('podium')}}>
+            {icon('rocket', 28, '#333', '#E7E7E7', selected == 'podium' ? true:false)}
       </TouchableOpacity>
       <TouchableOpacity  style={styles.menuIcon} onPress={() => {setSelected('auction')}}>
-            {icon('trending-up', 28, '#333', '#E7E7E7', selected == 'auction' ? true:false)}
+            {icon('donate', 28, '#333', '#E7E7E7', selected == 'auction' ? true:false)}
       </TouchableOpacity >
       <TouchableOpacity style={styles.menuIcon} onPress={() => {setSelected('more')}}>
-            {icon('add', 28, '#333', '#E7E7E7', selected == 'more' ? true:false)}
+            {icon('plus', 28, '#333', '#E7E7E7', selected == 'more' ? true:false)}
       </TouchableOpacity>
-      <TouchableOpacity style={styles.menuIcon} onPress={() => {setSelected('settings')}}>
-            {icon('settings', 28, '#333', '#E7E7E7', selected == 'settings' ? true:false)}
+      <TouchableOpacity  style={styles.menuIcon} onPress={() => {setSelected('home')}}>
+            {icon('home', 28, '#333', '#E7E7E7', selected == 'home' ? true:false)}
       </TouchableOpacity>
       <Animated.View style={{...styles.backgroundIcon, left: moveAnimation}}></Animated.View>
     </View>

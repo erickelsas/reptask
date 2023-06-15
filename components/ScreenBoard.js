@@ -1,12 +1,18 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard  } from 'react-native'
 import React from 'react'
 
 const ScreenBoard = (props) => {
   return (
     <View style={styles.container}>
-        <View style={styles.content}>
-            {props.children}
-        </View>
+        <KeyboardAvoidingView 
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={{flex:1}}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
+                <View style={styles.content}>
+                    {props.children}
+                </View>
+            </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     </View>
   )
 }

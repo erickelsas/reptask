@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View} from 'react-native'
 import React, { useState } from 'react'
 import ProfileHeader from '../components/ProfileHeader'
 import ScreenBoard from '../components/ScreenBoard'
@@ -11,9 +11,7 @@ import BubbleVector from '../components/BubbleVector'
 const StartAuctionScreen = () => {
     const [minimum, setMinimum] = useState('');
     const onChangeTextHandle = (e) => {
-        if(!isNaN(e.value)){
-            setMinimum(e.value);
-        }
+        setMinimum(e.value);
     }
 
     const onPressHandle = () => {
@@ -73,7 +71,8 @@ const styles = StyleSheet.create({
         display:'flex',
         justifyContent:'center',
         marginLeft:'10%',
-        marginTop:'7.5%'
+        marginTop: '7.5%',
+        marginTop:'0%',
     },
     participantsContainer:{
         width:'100%',

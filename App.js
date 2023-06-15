@@ -10,6 +10,7 @@ import BubbleVector from './components/BubbleVector';
 import ProfileHeader from './components/ProfileHeader';
 import StartAuctionScreen from './screens/StartAuctionScreen';
 import AdminCadastrarCasaScreen from './screens/AdminCadastrarCasaScreen';
+import ResultAuctionScreen from './screens/ResultAuctionScreen'
 
 SplashScreen.preventAutoHideAsync();
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
     'Inter-Black': require('./assets/fonts/Inter-Black.ttf'),
     'Inter-ExtraBold': require('./assets/fonts/Inter-ExtraBold.ttf'),
     'Inter-ExtraLight': require('./assets/fonts/Inter-ExtraLight.ttf'),
+    'Inter-Medium': require('./assets/fonts/Inter-Medium.ttf'),
     'Inter-Regular': require('./assets/fonts/Inter-Regular.ttf'),
     'Inter-SemiBold': require('./assets/fonts/Inter-SemiBold.ttf'),
     'Inter-Thin': require('./assets/fonts/Inter-Thin.ttf'),
@@ -38,8 +40,6 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
-
-  const participantVector = [{id:0, url: 'https://images.unsplash.com/photo-1676385901160-a86dc9ccdfe1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=486&q=80'}, {id:1, url:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80'}, {id:2, url:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=464&q=80'}, {id:3, url:'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80'}, ];
 
   return (
     <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
