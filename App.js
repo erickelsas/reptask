@@ -9,6 +9,7 @@ import { useCallback } from 'react';
 import BubbleVector from './components/BubbleVector';
 import ProfileHeader from './components/ProfileHeader';
 import StartAuctionScreen from './screens/StartAuctionScreen';
+import AdminCadastrarCasaScreen from './screens/AdminCadastrarCasaScreen';
 
 SplashScreen.preventAutoHideAsync();
 export default function App() {
@@ -43,7 +44,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
       <View style={{flex:0.9, width:'100%', alignItems:'center', justifyContent:'center'}}>
-        <StartAuctionScreen/>
+        <AdminCadastrarCasaScreen/>
       </View>
       <Menu style={styles.menu} selected='trophy'/>
     </SafeAreaView>
