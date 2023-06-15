@@ -9,12 +9,16 @@ import { useCallback, useState } from 'react';
 import BubbleVector from './components/BubbleVector';
 import ProfileHeader from './components/ProfileHeader';
 import StartAuctionScreen from './screens/StartAuctionScreen';
+
 import ResultAuctionScreen from './screens/ResultAuctionScreen';
 import EditTaskScreen from './screens/EditTaskScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import AccountTypeScreen from './screens/AccountTypeScreen';
 import AcessHouseScreen from './screens/AcessHouseScreen';
+import AdminCadastrarCasaScreen from './screens/AdminCadastrarCasaScreen';
+import ResultAuctionScreen from './screens/ResultAuctionScreen'
+
 
 SplashScreen.preventAutoHideAsync();
 export default function App() {
@@ -48,8 +52,8 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
-      <View style={menu ? styles.viewWithMenu : styles.viewWithoutMenu}>
-        <AcessHouseScreen/>
+      <View style={{flex:0.9, width:'100%', alignItems:'center', justifyContent:'center'}}>
+        <AdminCadastrarCasaScreen/>
       </View>
       {menu && <Menu style={styles.menu} selected='trophy'/>}
     </SafeAreaView>
