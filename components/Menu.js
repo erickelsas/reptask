@@ -51,7 +51,7 @@ const Menu = () => {
             {icon('rocket', 28, '#333', '#E7E7E7', selected == 'podium' ? true:false)}
       </TouchableOpacity>
       <TouchableOpacity  style={styles.menuIcon} onPress={() => {setSelected('auction')}}>
-            {icon('donate', 28, '#333', '#E7E7E7', selected == 'audiction' ? true:false)}
+            {icon('donate', 28, '#333', '#E7E7E7', selected == 'auction' ? true:false)}
       </TouchableOpacity >
       <TouchableOpacity style={styles.menuIcon} onPress={() => {setSelected('more')}}>
             {icon('plus', 28, '#333', '#E7E7E7', selected == 'more' ? true:false)}
