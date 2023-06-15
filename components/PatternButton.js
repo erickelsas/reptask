@@ -7,6 +7,7 @@ const PatternButton = (props) => {
     <View>
       <TouchableOpacity onPress={props.buttonConfig.onPressButton}>
         <View style={props.buttonConfig.isRed != undefined ? styles.redButton:styles.blueButton}>
+          {props.children}
           <Text style={styles.text}>
             {props.buttonConfig.title}
           </Text>
@@ -26,9 +27,13 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         fontSize: 16,
         backgroundColor: '#36457D',
-        elevation: 20,
-        shadowColor: '#000',
-        marginTop: '2.5%'
+        elevation: 10,
+        shadowColor: '#CCCC',
+        marginTop: '2.5%',
+        display:'flex',
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center'
     },
     redButton: {
       width: '100%',
@@ -39,7 +44,11 @@ const styles = StyleSheet.create({
       backgroundColor: '#EF4343',
       elevation: 20,
       shadowColor: '#000',
-      marginTop: '2.5%'
+      marginTop: '2.5%',
+      display:'flex',
+      justifyContent:'center',
+      alignItems:'center',
+      flexDirection:'row',
     },
     text:{
       color: '#f2f3f4',

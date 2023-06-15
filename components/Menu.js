@@ -6,7 +6,7 @@ const Menu = () => {
     const {width} = useWindowDimensions();
 
     const [left, setLeft] = useState(width * 0.095);
-    const [selected, setSelected] = useState('podium');
+    const [selected, setSelected] = useState('home');
 
     const [moveAnimation] = useState(new Animated.Value(width * 0.095));
 

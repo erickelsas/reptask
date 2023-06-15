@@ -4,15 +4,9 @@ import React from 'react'
 const ScreenBoard = (props) => {
   return (
     <View style={styles.container}>
-        <KeyboardAvoidingView 
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={{flex:1}}>
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
-                <View style={styles.content}>
-                    {props.children}
-                </View>
-            </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
+        <View style={styles.content}>
+            {props.children}
+        </View>
     </View>
   )
 }
