@@ -52,8 +52,12 @@ const AcessHouseScreen = ({navigation}) => {
         }
     }
 
-    const onPressHandleVoltar = (e) => {
-        navigation.goBack(null)
+    const onPressHandleVoltar = () => {
+        navigation.goBack(null);
+    }
+
+    const onPressHandleEntrar = () => {
+        navigation.navigate("Esperando");
     }
 
   return (
@@ -77,7 +81,7 @@ const AcessHouseScreen = ({navigation}) => {
             <TextInput ref={fourthInput} onChange={(e) => {onChangeFourth(e)}} value={fourthNumber} style={styles.textInput} keyboardType='numeric' selectionColor={'#FFF'}/>
             <TextInput ref={fifthInput} onChange={(e) => {onChangeFifth(e)}} value={fifthNumber} style={styles.textInput} keyboardType='numeric' selectionColor={'#FFF'}/>
         </View>
-        <TouchableOpacity style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <TouchableOpacity style={{display:'flex', justifyContent:'center', alignItems:'center'}} onPress={onPressHandleEntrar}>
             <View style={styles.button}>
                 <Text style={styles.textButton}>Solicitar acesso</Text>
             </View>

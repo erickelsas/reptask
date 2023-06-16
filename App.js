@@ -67,11 +67,12 @@ export default function App() {
 
               {!authHook[0] &&
                 <Stack.Navigator initialRouteName="Cadastro" screenOptions={{headerShown:false}}>
-                  <Stack.Screen name={"Cadastro"} component={AwaitingScreen}/>
+                  <Stack.Screen name={"Cadastro"} component={SignUpScreen}/>
                   <Stack.Screen name={"Login"} component={LoginScreen} />
                   <Stack.Screen name={"Tipo de conta"} component={AccountTypeScreen}/>
                   <Stack.Screen name={"Criar nova casa"} component={AcessHouseScreen}/>
                   <Stack.Screen name={"Solicitar entrada"} component={AdminCadastrarCasaScreen}/>
+                  <Stack.Screen name={"Esperando"} component={AwaitingScreen}/>
                 </Stack.Navigator>
               }
             </AuthContext.Provider>

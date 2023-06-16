@@ -5,6 +5,8 @@ import EditTaskScreen from '../screens/EditTaskScreen';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import RankingScreen from '../screens/RankingScreen';
+import AddTaskScreen from '../screens/AddTaskScreen';
+import BidAuctionScreen from '../screens/BidAuctionScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -14,34 +16,34 @@ const icon = (iconName, size, color, colorSelected, focused) => {
 
 const Tabs = () => {
   return (
-    <Tab.Navigator screenOptions
+    <Tab.Navigator initialRouteName='New Auction' screenOptions
     ={{tabBarStyle:styles.menu}}>
       <Tab.Screen name='Start Auction' component={RankingScreen} options={{tabBarLabel:() => null, headerShown:false, tabBarIcon:({focused}) => (
           <TouchableOpacity style={styles.menuIcon}>
          <View style={focused ? styles.backgroundIcon:{}}>
-            {icon('rocket', 28, '#2E3E75', '#FFF', focused ? true:false)}
+            {icon('rocket', 28, '#202020', '#FFF', focused ? true:false)}
             </View>
           </TouchableOpacity>
 
       )}} />
-      <Tab.Screen name='Start Auction 2' component={StartAuctionScreen} options={{tabBarLabel:() => null, headerShown:false, tabBarIcon:({focused}) => (
+      <Tab.Screen name='New Auction' component={BidAuctionScreen} options={{tabBarLabel:() => null, headerShown:false, tabBarIcon:({focused}) => (
           <TouchableOpacity style={styles.menuIcon}>
          <View style={focused ? styles.backgroundIcon:{}}>
-            {icon('donate', 28, '#2E3E75', '#FFF', focused? true:false)}
+            {icon('donate', 28, '#202020', '#FFF', focused? true:false)}
           </View>
           </TouchableOpacity>
       )}}/>
-      <Tab.Screen name='Edit Task' component={EditTaskScreen} options={{tabBarLabel:() => null, headerShown:false, tabBarIcon:({focused}) => (
+      <Tab.Screen name='Add Task' component={AddTaskScreen} options={{tabBarLabel:() => null, headerShown:false, tabBarIcon:({focused}) => (
             <TouchableOpacity style={styles.menuIcon}>
               <View style={focused ? styles.backgroundIcon:{}}>
-                {icon('plus', 28, '#2E3E75', '#FFF', focused ? true:false)}
+                {icon('plus', 28, '#202020', '#FFF', focused ? true:false)}
               </View>
             </TouchableOpacity>
       )}}/>
       <Tab.Screen name='Home' component={ResultAuctionScreen} options={{tabBarLabel:() => null, headerShown:false, tabBarIcon:({focused}) => (
             <TouchableOpacity style={styles.menuIcon}>
               <View style={focused ? styles.backgroundIcon:{}}>
-                {icon('home', 28, '#2E3E75', '#FFF', focused ? true:false)}  
+                {icon('home', 28, '#202020', '#FFF', focused ? true:false)}  
               </View>
             </TouchableOpacity>
       )}}/>
