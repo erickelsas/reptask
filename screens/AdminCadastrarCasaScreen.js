@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import ProfileHeader from '../components/ProfileHeader'
 import ScreenBoard from '../components/ScreenBoard'
 import PageJustTitle from '../components/PageJustTittle'
@@ -7,15 +7,20 @@ import BodyTextWithTittle from '../components/BodyTextWithTittle'
 import InputText from '../components/InputText'
 import PatternButton from '../components/PatternButton'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { AuthContext } from '../contexts/AuthContext'
 
-const AdminCadastrarCasaScreen = () => {
-    const [minimum, setMinimum] = useState('');
+const AdminCadastrarCasaScreen = ({ route, navigation}) => {
+    const authHook = useContext(AuthContext);
+    const auth = authHook[0];
+    const setAuth = authHook[1];
+
+    const [name, setName] = useState('');
     const onChangeTextHandle = (e) => {
-        setMinimum(e.value);
+        setName(e.value);
     }
 
     const onPressHandle = () => {
-
+        setAuth(true);
     }
 
   return (
@@ -27,9 +32,9 @@ const AdminCadastrarCasaScreen = () => {
                 <Image stytle={styles.bluehouse} source={require('../assets/images/blueBigHouse.png')}></Image>
                 <BodyTextWithTittle text={{title:'Parece que você ainda não faz parte de uma casa', subtitle:'Cadastre sua casa abaixo para aproveitar todas funções do aplicativo'}}></BodyTextWithTittle>
                 <View style={styles.form}>
-                    <InputText inputConfig={{secure:false, onChange:onChangeTextHandle, value:minimum}}/>
+                    <InputText inputConfig={{secure:false, onChange:onChangeTextHandle, value:name}}/>
                     <View style={{width:'60%', display:'flex', justifyContent:'center', alignItems:'center', marginLeft:'20%'}}>
-                        <PatternButton buttonConfig={{title:'Criar Casa', onPressButton:onPressHandle}}></PatternButton>
+                        <PatternButton buttonConfig={{title:'Criar Casa', onPress:onPressHandle}}></PatternButton>
                     </View>
                 </View>
             </View>    

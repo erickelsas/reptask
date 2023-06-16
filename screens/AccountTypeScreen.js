@@ -5,13 +5,13 @@ import PatternButton from '../components/PatternButton'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-const AccountTypeScreen = () => {
+const AccountTypeScreen = ({ route, navigation}) => {
   const onPressMorador = () => {
-
+    navigation.navigate('Criar nova casa');
   }
 
   const onPressAdmin = () => {
-
+    navigation.navigate('Solicitar entrada');
   }
   return (
     <SafeAreaView style={styles.screen}>

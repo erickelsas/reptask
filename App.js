@@ -22,9 +22,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Tabs from './components/Tabs';
 
+import {AuthContext} from './contexts/AuthContext'
+
 export default function App() {
-  const [menu, setMenu] = useState(true);
-  
+  const authHook = useState(false);
+
   const [fontsLoaded] = useFonts({
     'Inter-Bold': require('./assets/fonts/Inter-Bold.ttf'),
     'Inter-Black': require('./assets/fonts/Inter-Black.ttf'),
@@ -54,11 +56,25 @@ export default function App() {
   const Stack = createNativeStackNavigator();
   
   return (
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Cadastro" screenOptions={{headerShown:false}}>
-          <Stack.Screen name={"Cadastro"} component={Tabs} initialParams={onLayoutRootView}/>
-        </Stack.Navigator>
-      </NavigationContainer>
+
+        <NavigationContainer>
+            <AuthContext.Provider value={authHook}>
+              {authHook[0] && 
+            <Stack.Navigator initialRouteName="Tabs" screenOptions={{headerShown:false}}>
+              <Stack.Screen name={"Tabs"} component={Tabs}/>
+            </Stack.Navigator>}
+
+              {!authHook[0] &&
+                <Stack.Navigator initialRouteName="Cadastro" screenOptions={{headerShown:false}}>
+                  <Stack.Screen name={"Cadastro"} component={SignUpScreen}/>
+                  <Stack.Screen name={"Login"} component={LoginScreen} />
+                  <Stack.Screen name={"Tipo de conta"} component={AccountTypeScreen}/>
+                  <Stack.Screen name={"Criar nova casa"} component={AcessHouseScreen}/>
+                  <Stack.Screen name={"Solicitar entrada"} component={AdminCadastrarCasaScreen}/>
+                </Stack.Navigator>
+              }
+            </AuthContext.Provider>
+        </NavigationContainer>
   );
 }
 
@@ -69,19 +85,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
-  menu: {
-    flex: 0.1
-  },
-  viewWithMenu:{
-    flex:0.9, 
-    width:'100%', 
-    alignItems:'center', 
-    justifyContent:'center'
-  },
-  viewWithoutMenu:{
-    flex:1, 
-    width:'100%', 
-    alignItems:'center', 
-    justifyContent:'center'
-  }
 });
