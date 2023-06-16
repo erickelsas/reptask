@@ -4,6 +4,7 @@ import ResultAuctionScreen from '../screens/ResultAuctionScreen';
 import EditTaskScreen from '../screens/EditTaskScreen';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import RankingScreen from '../screens/RankingScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,7 +16,7 @@ const Tabs = () => {
   return (
     <Tab.Navigator screenOptions
     ={{tabBarStyle:styles.menu}}>
-      <Tab.Screen name='Start Auction' component={StartAuctionScreen} options={{tabBarLabel:() => null, headerShown:false, tabBarIcon:({focused}) => (
+      <Tab.Screen name='Start Auction' component={RankingScreen} options={{tabBarLabel:() => null, headerShown:false, tabBarIcon:({focused}) => (
           <TouchableOpacity style={styles.menuIcon}>
          <View style={focused ? styles.backgroundIcon:{}}>
             {icon('rocket', 28, '#2E3E75', '#FFF', focused ? true:false)}

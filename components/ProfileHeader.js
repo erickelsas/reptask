@@ -8,7 +8,7 @@ const ProfileHeader = (props) => {
   return (
     <SafeAreaView style={styles.component}>
       <View style={styles.container}>
-        <TouchableOpacity style={styles.content}><Icon name={'gear'} size={28} color={'#000000'}/></TouchableOpacity>
+        <TouchableOpacity style={styles.content}><Icon name={'user-plus'} size={26} color={'#202020'}/></TouchableOpacity>
         <View style={{...styles.content, ...styles.textContent}}>
             <Text style={styles.textTitle} numberOfLines={1}>{props.user.name}</Text>
             <Text>{`${date.toLocaleDateString()}`}</Text>

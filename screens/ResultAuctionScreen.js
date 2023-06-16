@@ -22,7 +22,7 @@ const ResultAuctionScreen = () => {
           <View style={styles.backgroundTask}>
             <TaskNameAndMinimum theme='dark' task={{name:'Tirar o lixo', minimum:15}}/>
           </View>
-          <ScrollView style={{width:'100%', marginTop:'15%', height:'80%', backgroundColor:'#E7E7E7', paddingLeft:'5%', paddingVertical:'4%', borderRadius: 8, elevation: 10, shadowColor: '#000'}}>
+          <ScrollView style={{width:'100%', marginTop:'15%', backgroundColor:'#E7E7E7', paddingLeft:'5%', paddingVertical:'4%', borderRadius: 8, elevation: 10, shadowColor: '#000'}}>
             <AuctionPointsLine user={userVector[0]} isMinimum={true}/>
             {userVectorWithoutMinimal && userVectorWithoutMinimal.map((user) => (<AuctionPointsLine key={user.id} user={user} isMinimum={false}/>))}
           </ScrollView>
@@ -39,9 +39,10 @@ const styles = StyleSheet.create({
         flexDirection:'column',
         alignItems:'center',
         justifyContent: 'space-between',
-        height:'100%',
+        height:'91.5%',
         width:'100%',
         flex: 1,
+        paddingTop:'8.5%'
     },
     backgroundTask:{
       width:'90%',

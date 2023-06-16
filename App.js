@@ -23,6 +23,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Tabs from './components/Tabs';
 
 import {AuthContext} from './contexts/AuthContext'
+import AwaitingScreen from './screens/AwaitingScreen';
 
 export default function App() {
   const authHook = useState(false);
@@ -66,7 +67,7 @@ export default function App() {
 
               {!authHook[0] &&
                 <Stack.Navigator initialRouteName="Cadastro" screenOptions={{headerShown:false}}>
-                  <Stack.Screen name={"Cadastro"} component={SignUpScreen}/>
+                  <Stack.Screen name={"Cadastro"} component={AwaitingScreen}/>
                   <Stack.Screen name={"Login"} component={LoginScreen} />
                   <Stack.Screen name={"Tipo de conta"} component={AccountTypeScreen}/>
                   <Stack.Screen name={"Criar nova casa"} component={AcessHouseScreen}/>
