@@ -2,6 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View, TextInput, Keyboard } from 'r
 import React, { useRef, useState } from 'react'
 import Notify from '../assets/notify.svg'
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const AcessHouseScreen = () => {
     const [firstNumber, setFirstNumber] = useState('');
@@ -24,6 +25,7 @@ const AcessHouseScreen = () => {
 
     const onChangeSecond = (e) => {
         setSecondNumber(e.value);
+        console.log(e.value);
         if(e.value != ''){
             thirdInput.current.focus();
         } 
@@ -51,7 +53,7 @@ const AcessHouseScreen = () => {
     }
 
   return (
-    <View style={styles.screen}>
+    <SafeAreaView style={styles.screen}>
       <View style={{marginTop:'-40%'}}>
         <Notify width={300}/>    
       </View>
@@ -65,11 +67,11 @@ const AcessHouseScreen = () => {
       </View>
       <View style={styles.card}>
         <View style={{display:'flex', justifyContent:'center', alignItems:'center', flexDirection:'row', gap: 12, width:'100%'}}>
-            <TextInput onChange={(e) => {onChangeFirst(e)}} value={firstNumber} keyboardType='numeric' style={styles.textInput}/>
-            <TextInput ref={secondInput} onChange={(e) => {onChangeSecond(e)}} value={secondNumber} style={styles.textInput} keyboardType='numeric'/>
-            <TextInput ref={thirdInput} onChange={(e) => {onChangeThird(e)}} value={thirdNumber} style={styles.textInput} keyboardType='numeric'/>
-            <TextInput ref={fourthInput} onChange={(e) => {onChangeFourth(e)}} value={fourthNumber} style={styles.textInput} keyboardType='numeric'/>
-            <TextInput ref={fifthInput} onChange={(e) => {onChangeFifth(e)}} value={fifthNumber} style={styles.textInput} keyboardType='numeric'/>
+            <TextInput onChange={(e) => {onChangeFirst(e)}} value={firstNumber} keyboardType='numeric' style={styles.textInput} selectionColor={'#FFF'}/>
+            <TextInput ref={secondInput} onChange={(e) => {onChangeSecond(e)}} value={secondNumber} style={styles.textInput} keyboardType='numeric' selectionColor={'#FFF'}/>
+            <TextInput ref={thirdInput} onChange={(e) => {onChangeThird(e)}} value={thirdNumber} style={styles.textInput} keyboardType='numeric' selectionColor={'#FFF'}/>
+            <TextInput ref={fourthInput} onChange={(e) => {onChangeFourth(e)}} value={fourthNumber} style={styles.textInput} keyboardType='numeric' selectionColor={'#FFF'}/>
+            <TextInput ref={fifthInput} onChange={(e) => {onChangeFifth(e)}} value={fifthNumber} style={styles.textInput} keyboardType='numeric' selectionColor={'#FFF'}/>
         </View>
         <TouchableOpacity style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
             <View style={styles.button}>
@@ -81,7 +83,7 @@ const AcessHouseScreen = () => {
       <TouchableOpacity style={{position:'absolute', left:'7.5%', top:'7.5%', zIndex:2}}>
         <Icon name='chevron-left' size={24} color="#AAAAAA"/>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   )
 }
 

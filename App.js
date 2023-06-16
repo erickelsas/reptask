@@ -5,7 +5,7 @@ import ParticipantPhoto from './components/ParticipantPhotoBubble';
 import NumberPhotoBubble from './components/NumberPhotoBubble';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import BubbleVector from './components/BubbleVector';
 import ProfileHeader from './components/ProfileHeader';
 import StartAuctionScreen from './screens/StartAuctionScreen';
@@ -17,12 +17,13 @@ import SignUpScreen from './screens/SignUpScreen';
 import AccountTypeScreen from './screens/AccountTypeScreen';
 import AcessHouseScreen from './screens/AcessHouseScreen';
 import AdminCadastrarCasaScreen from './screens/AdminCadastrarCasaScreen';
-import ResultAuctionScreen from './screens/ResultAuctionScreen'
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Tabs from './components/Tabs';
 
-SplashScreen.preventAutoHideAsync();
 export default function App() {
-  const [menu, setMenu] = useState(false);
+  const [menu, setMenu] = useState(true);
   
   const [fontsLoaded] = useFonts({
     'Inter-Bold': require('./assets/fonts/Inter-Bold.ttf'),
@@ -50,13 +51,14 @@ export default function App() {
     return null;
   }
 
+  const Stack = createNativeStackNavigator();
+  
   return (
-    <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
-      <View style={{flex:0.9, width:'100%', alignItems:'center', justifyContent:'center'}}>
-        <AdminCadastrarCasaScreen/>
-      </View>
-      {menu && <Menu style={styles.menu} selected='trophy'/>}
-    </SafeAreaView>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Cadastro" screenOptions={{headerShown:false}}>
+          <Stack.Screen name={"Cadastro"} component={Tabs} initialParams={onLayoutRootView}/>
+        </Stack.Navigator>
+      </NavigationContainer>
   );
 }
 

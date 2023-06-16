@@ -1,12 +1,14 @@
 import { KeyboardAvoidingView, StyleSheet, Text, TouchableWithoutFeedback, Keyboard, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProfileHeader from '../components/ProfileHeader'
 import ScreenBoard from '../components/ScreenBoard'
 import PageTitle from '../components/PageTitle'
 import InputText from '../components/InputText'
 import PatternButton from '../components/PatternButton'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import Menu from '../components/Menu'
 
-const EditTaskScreen = () => {
+const EditTaskScreen = ({route}) => {
   const [title, setTitle] = useState('');
   const [points, setPoints] = useState(0);
   const [description, setDescription] = useState('');
@@ -32,29 +34,32 @@ const EditTaskScreen = () => {
   }
 
   return (
-    <View style={styles.screen}>
-        <ProfileHeader user={{name:'Luísa', url:'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'}} style={styles.header}/>
-        <ScreenBoard style={styles.board}>
-          <PageTitle text={{title:`Editar tarefa`, subtitle:`República 01`}}/>
-          <KeyboardAvoidingView                
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={{flex:1, width:'100%'}}>
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-              <View style={styles.formContainer}>
-                <View style={styles.form}>
-                  <InputText inputConfig={{secure:false, onChange:onChangeTitleHandle}}>Título</InputText>
-                  <InputText inputConfig={{secure:false, onChange:onChangePointsHandle, keyboardType:'numeric'}}>Pontuação</InputText>
-                  <InputText inputConfig={{secure:false, onChange:onChangeTitleHandle, lines:3, multiline:true}}>Descrição</InputText>
-                  <View style={styles.buttonContainer}>
-                    <PatternButton buttonConfig={{title:'Editar tarefa', onPressButton:onPressEdit}}/>
-                    <PatternButton buttonConfig={{title:'Apagar tarefa', onPressButton:onPressDelete, isRed: true}}/>
+    <>
+      <SafeAreaView style={styles.screen}>
+          <ProfileHeader user={{name:'Luísa', url:'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'}} style={styles.header}/>
+          <ScreenBoard style={styles.board}>
+            <PageTitle text={{title:`Editar tarefa`, subtitle:`República 01`}}/>
+            <KeyboardAvoidingView                
+              behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+              style={{flex:1, width:'100%'}}>
+              <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.formContainer}>
+                  <View style={styles.form}>
+                    <InputText inputConfig={{secure:false, onChange:onChangeTitleHandle}}>Título</InputText>
+                    <InputText inputConfig={{secure:false, onChange:onChangePointsHandle, keyboardType:'numeric'}}>Pontuação</InputText>
+                    <InputText inputConfig={{secure:false, onChange:onChangeTitleHandle, lines:3, multiline:true}}>Descrição</InputText>
+                    <View style={styles.buttonContainer}>
+                      <PatternButton buttonConfig={{title:'Editar tarefa', onPressButton:onPressEdit}}/>
+                      <PatternButton buttonConfig={{title:'Apagar tarefa', onPressButton:onPressDelete, isRed: true}}/>
+                    </View>
                   </View>
                 </View>
-              </View>
-            </TouchableWithoutFeedback>
-          </KeyboardAvoidingView>
-        </ScreenBoard>
-    </View>
+              </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
+          </ScreenBoard>
+      </SafeAreaView>
+    </>
+
   )
 }
 
