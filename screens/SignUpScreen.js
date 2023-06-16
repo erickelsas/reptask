@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
 import InputText from '../components/InputText'
 import PatternButton from '../components/PatternButton';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SignUpScreen = () => {
     const [email, setEmail] = useState('');
@@ -35,7 +36,7 @@ const SignUpScreen = () => {
     }
 
   return (
-    <View style={styles.screen}>
+    <SafeAreaView style={styles.screen}>
         <View style={{display:'flex', justifyContent:'center', alignItems:'center', width:'100%', height:'25%'}}>
             <LinearGradient colors={['#1F2B59', '#2B396C']} start={{x:1, y:0}} end={{x:1, y:1}} style={styles.background}/> 
             <Image source={require('../assets/logo.png')} style={{resizeMode:'stretch', zIndex:2}}/>  
@@ -73,7 +74,7 @@ const SignUpScreen = () => {
                 </KeyboardAvoidingView>
             </View>
         </View>              
-    </View>
+    </SafeAreaView>
   )
 }
 

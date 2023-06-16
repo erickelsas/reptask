@@ -6,6 +6,7 @@ import PageJustTittle from '../components/PageJustTittle'
 import BodyTextWithTittle from '../components/BodyTextWithTittle'
 import InputText from '../components/InputText'
 import PatternButton from '../components/PatternButton'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const AdminCadastrarCasaScreen = () => {
     const [minimum, setMinimum] = useState('');
@@ -18,7 +19,7 @@ const AdminCadastrarCasaScreen = () => {
     }
 
   return (
-    <View style={styles.screen}>
+    <SafeAreaView style={styles.screen}>
         <ProfileHeader user={{name:'Luísa', url:'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'}} style={styles.header}/>
         <ScreenBoard style={styles.board}>
             <PageJustTittle text={{title:'Cadastrar casa'}}/>
@@ -33,7 +34,7 @@ const AdminCadastrarCasaScreen = () => {
                 </View>
             </View>    
         </ScreenBoard>
-    </View>
+    </SafeAreaView>
   )
 }
 

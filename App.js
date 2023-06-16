@@ -5,7 +5,7 @@ import ParticipantPhoto from './components/ParticipantPhotoBubble';
 import NumberPhotoBubble from './components/NumberPhotoBubble';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import BubbleVector from './components/BubbleVector';
 import ProfileHeader from './components/ProfileHeader';
 import StartAuctionScreen from './screens/StartAuctionScreen';
@@ -17,10 +17,12 @@ import SignUpScreen from './screens/SignUpScreen';
 import AccountTypeScreen from './screens/AccountTypeScreen';
 import AcessHouseScreen from './screens/AcessHouseScreen';
 import AdminCadastrarCasaScreen from './screens/AdminCadastrarCasaScreen';
-import AdminHome from './screens/AdminHome'
+import AdminHome from './screens/AdminHome';
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Tabs from './components/Tabs';
 
-SplashScreen.preventAutoHideAsync();
 export default function App() {
   const [menu, setMenu] = useState(true);
   
@@ -49,10 +51,11 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
-
+  const Stack = createNativeStackNavigator();
+  
   return (
     <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
-      <View style={menu ? styles.viewWithMenu : styles.viewWithoutMenu}>
+      <View style={{flex:0.9, width:'100%', alignItems:'center', justifyContent:'center'}}>
         <AdminHome/>
       </View>
       {menu && <Menu style={styles.menu} selected='trophy'/>}

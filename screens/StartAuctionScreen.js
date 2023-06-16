@@ -7,6 +7,7 @@ import TaskNameAndMinimum from '../components/TaskNameAndMinimum'
 import InputText from '../components/InputText'
 import PatternButton from '../components/PatternButton'
 import BubbleVector from '../components/BubbleVector'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const StartAuctionScreen = () => {
     const [minimum, setMinimum] = useState('');
@@ -21,7 +22,7 @@ const StartAuctionScreen = () => {
     const participantsVector = [{id:0, url: 'https://images.unsplash.com/photo-1676385901160-a86dc9ccdfe1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=486&q=80'}, {id:1, url:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80'}, {id:2, url:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=464&q=80'}, {id:3, url:'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80'}, ];
 
   return (
-    <View style={styles.screen}>
+    <SafeAreaView style={styles.screen}>
         <ProfileHeader user={{name:'Luísa', url:'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'}} style={styles.header}/>
         <ScreenBoard style={styles.board}>
             <PageTitle text={{title:'Inicie o leilão', subtitle:'Informe a pontuação que os usuários podem utilizar para essa tarefa'}}/>
@@ -48,7 +49,7 @@ const StartAuctionScreen = () => {
                 </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
         </ScreenBoard>
-    </View>
+    </SafeAreaView>
   )
 }
 

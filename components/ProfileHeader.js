@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const ProfileHeader = (props) => {
     const date = new Date();
   return (
-    <View style={styles.component}>
+    <SafeAreaView style={styles.component}>
       <View style={styles.container}>
         <TouchableOpacity style={styles.content}><Icon name={'gear'} size={28} color={'#000000'}/></TouchableOpacity>
         <View style={{...styles.content, ...styles.textContent}}>
@@ -18,7 +19,7 @@ const ProfileHeader = (props) => {
             </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 

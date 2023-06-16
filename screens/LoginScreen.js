@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
 import InputText from '../components/InputText'
 import PatternButton from '../components/PatternButton';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const LoginScreen = () => {
     const [email, setEmail] = useState('');
@@ -25,7 +26,7 @@ const LoginScreen = () => {
     }
 
   return (
-    <View style={styles.screen}>
+    <SafeAreaView style={styles.screen}>
         <View style={{display:'flex', justifyContent:'center', alignItems:'center', width:'100%', height:'25%'}}>
             <Text style={styles.text}>Login</Text>
         </View>
@@ -51,7 +52,7 @@ const LoginScreen = () => {
                 </KeyboardAvoidingView>
             </View>
         </View>              
-    </View>
+    </SafeAreaView>
   )
 }
 

@@ -3,7 +3,7 @@ import React from 'react'
 import Filter from '../assets/bestplace.svg'
 import PatternButton from '../components/PatternButton'
 import Icon from 'react-native-vector-icons/FontAwesome5'
-import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const AccountTypeScreen = () => {
   const onPressMorador = () => {
@@ -14,7 +14,7 @@ const AccountTypeScreen = () => {
 
   }
   return (
-    <View style={styles.screen}>
+    <SafeAreaView style={styles.screen}>
       <Filter width={300}/>
       <View style={styles.containerContent}>
         <Text style={styles.title}>
@@ -36,7 +36,7 @@ const AccountTypeScreen = () => {
           </PatternButton>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 

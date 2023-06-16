@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import ProfileHeader from '../components/ProfileHeader'
 import ScreenBoard from '../components/ScreenBoard'
 import PageJustTittle from '../components/PageJustTittle'
-import CardPendetTask from '../components/CardPendetTask'
+import CardPendentTask from '../components/CardPendentTask'
 
 
 const TemplateScreen = () => {
@@ -13,7 +13,7 @@ const TemplateScreen = () => {
         <ScreenBoard style={styles.board}>
             <PageJustTittle text={{title:'Minha Casa'}}/>
             <View style={styles.block}>
-                <CardPendetTask></CardPendetTask>
+                <CardPendentTask text={{title:'República Zero Um'}}/>
             </View>
         </ScreenBoard>
     </View>
