@@ -17,12 +17,12 @@ import SignUpScreen from './screens/SignUpScreen';
 import AccountTypeScreen from './screens/AccountTypeScreen';
 import AcessHouseScreen from './screens/AcessHouseScreen';
 import AdminCadastrarCasaScreen from './screens/AdminCadastrarCasaScreen';
-import ResultAuctionScreen from './screens/ResultAuctionScreen'
+import AdminHome from './screens/AdminHome'
 
 
 SplashScreen.preventAutoHideAsync();
 export default function App() {
-  const [menu, setMenu] = useState(false);
+  const [menu, setMenu] = useState(true);
   
   const [fontsLoaded] = useFonts({
     'Inter-Bold': require('./assets/fonts/Inter-Bold.ttf'),
@@ -52,8 +52,8 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
-      <View style={{flex:0.9, width:'100%', alignItems:'center', justifyContent:'center'}}>
-        <AdminCadastrarCasaScreen/>
+      <View style={menu ? styles.viewWithMenu : styles.viewWithoutMenu}>
+        <AdminHome/>
       </View>
       {menu && <Menu style={styles.menu} selected='trophy'/>}
     </SafeAreaView>
