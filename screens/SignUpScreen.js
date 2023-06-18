@@ -5,7 +5,7 @@ import InputText from '../components/InputText'
 import PatternButton from '../components/PatternButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const SignUpScreen = () => {
+const SignUpScreen = ({route, navigation}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [nickname, setNickname] = useState('');
@@ -24,11 +24,11 @@ const SignUpScreen = () => {
     }
 
     const onPressHandleEntrar= (e) => {
-
+        navigation.navigate("Tipo de conta");
     }
 
     const onPressHandleFazerLogin = (e) => {
-
+        navigation.navigate("Login");
     }
 
     const onPressCheckbox = () => {

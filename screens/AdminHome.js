@@ -4,6 +4,9 @@ import ProfileHeader from '../components/ProfileHeader'
 import ScreenBoard from '../components/ScreenBoard'
 import PageJustTittle from '../components/PageJustTittle'
 import CardPendentTask from '../components/CardPendentTask'
+import TasksTittle from '../components/TasksTittle'
+import Tasks from '../components/Tasks'
+import TasksOfHome from '../components/TasksOfHome'
 
 
 const TemplateScreen = () => {
@@ -13,7 +16,15 @@ const TemplateScreen = () => {
         <ScreenBoard style={styles.board}>
             <PageJustTittle text={{title:'Minha Casa'}}/>
             <View style={styles.block}>
-                <CardPendentTask text={{title:'República Zero Um'}}/>
+                <CardPendentTask text={{repname:'Concordaro', check:'1', uncheck:'2'}}/>
+                <TasksTittle text={{title:'Minhas tarefas'}} buttonConfig={{title:'Entrar'}}/>
+                <Tasks text={{task:'Lavar roupa', points:'5'}}></Tasks>
+                <Tasks text={{task:'Lavar o banheiro', points:'8'}}></Tasks>
+                <TasksTittle text={{title:'Tarefas da casa'}} buttonConfig={{title:'Entrar'}}/>
+                <TasksOfHome text={{task:'Lavar roupa', points:'5'}}/>
+                <TasksOfHome text={{task:'Lavar roupa', points:'5'}}/>
+                <TasksOfHome text={{task:'Lavar roupa', points:'5'}}/>
+                <TasksOfHome text={{task:'Lavar roupa', points:'5'}}/>
             </View>
         </ScreenBoard>
     </View>
@@ -31,6 +42,7 @@ const styles = StyleSheet.create({
         height:'100%',
         width:'100%',
         flex: 1,
+        paddingTop: '17%'
     },
     block:{
         width:'100%',

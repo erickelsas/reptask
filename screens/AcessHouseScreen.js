@@ -4,7 +4,7 @@ import Notify from '../assets/notify.svg'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-const AcessHouseScreen = () => {
+const AcessHouseScreen = ({navigation}) => {
     const [firstNumber, setFirstNumber] = useState('');
     const [secondNumber, setSecondNumber] = useState('');
     const [thirdNumber, setThirdNumber] = useState('');
@@ -52,6 +52,10 @@ const AcessHouseScreen = () => {
         }
     }
 
+    const onPressHandleVoltar = (e) => {
+        navigation.goBack(null)
+    }
+
   return (
     <SafeAreaView style={styles.screen}>
       <View style={{marginTop:'-40%'}}>
@@ -80,7 +84,7 @@ const AcessHouseScreen = () => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={{position:'absolute', left:'7.5%', top:'7.5%', zIndex:2}}>
+      <TouchableOpacity style={{position:'absolute', left:'7.5%', top:'7.5%', zIndex:2}} onPress={onPressHandleVoltar}>
         <Icon name='chevron-left' size={24} color="#AAAAAA"/>
       </TouchableOpacity>
     </SafeAreaView>

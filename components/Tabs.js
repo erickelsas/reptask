@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import StartAuctionScreen from '../screens/StartAuctionScreen';
 import ResultAuctionScreen from '../screens/ResultAuctionScreen';
 import EditTaskScreen from '../screens/EditTaskScreen';
+import AdminHome from '../screens/AdminHome'
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
@@ -13,9 +14,10 @@ const icon = (iconName, size, color, colorSelected, focused) => {
 
 const Tabs = () => {
   return (
+    //AQUIIIIIII
     <Tab.Navigator screenOptions
     ={{tabBarStyle:styles.menu}}>
-      <Tab.Screen name='Start Auction' component={StartAuctionScreen} options={{tabBarLabel:() => null, headerShown:false, tabBarIcon:({focused}) => (
+      <Tab.Screen name='Start Auction' component={AdminHome} options={{tabBarLabel:() => null, headerShown:false, tabBarIcon:({focused}) => (
           <TouchableOpacity style={styles.menuIcon}>
          <View style={focused ? styles.backgroundIcon:{}}>
             {icon('rocket', 28, '#2E3E75', '#FFF', focused ? true:false)}
