@@ -7,83 +7,90 @@ import AuctionPointsLine from '../components/AuctionPointsLine'
 import ParticipantPhotoBubble from '../components/ParticipantPhotoBubble'
 import IconCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
 import { LinearGradient } from 'expo-linear-gradient';
+import RequestModalScreen from './RequestModalScreen'
 
-const RankingScreen = () => {
+const RankingScreen = ({ route, navigation }) => {
     const [userVector, setUserVector] = useState([{id:0, name: 'Manu', points: 50, url: 'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'}, {id:1, name: 'Maria Luísa', points: 40, url: 'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'},{id:2, name: 'Maria Luísa', points: 30, url: 'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'},{id:3, name: 'Maria Luísa', points: 20, url: 'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'},{id:4, name: 'Maria Luísa', points: 35, url: 'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'},{id:5, name: 'Maria Luísa', points: 5, url: 'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'}].sort((a,b) => b.points - a.points));
     const [usersWithoutThree, setUsersWithoutThree] = useState([]);
   
     useEffect(() => {
         setUsersWithoutThree(userVector.slice(3));
-    }, [userVector])
+    }, [userVector]);
+
+    const [requestModal, setRequestModal] = useState(false);
     
   return (
-    <SafeAreaView style={styles.screen}>
-      <ProfileHeader user={{name:'Luísa', url:'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'}} style={styles.header}/>
-      <View style={{display:'flex', height:'94.5%', paddingTop:'10%'}}>
-        <Text style={{fontFamily:'Roboto-Bold', fontSize:24, textAlign:'center', color:'#1E1E1E'}}>
-            República Zero Um
-        </Text>
-        <View style={{display:'flex', width:'90%', alignItems:'flex-start', paddingTop:'10%'}}>
-            <Text style={{fontFamily:'Roboto-Medium', fontSize:24, textAlign:'center', color:'#1E1E1E'}}>
-                Ranking
+    <>
+        <SafeAreaView style={styles.screen}>
+        <ProfileHeader setModalVisible={setRequestModal} navigation={navigation} user={{name:'Luísa', url:'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'}} style={styles.header}/>
+        <View style={{display:'flex', height:'94.5%', paddingTop:'10%'}}>
+            <Text style={{fontFamily:'Roboto-Bold', fontSize:24, textAlign:'center', color:'#1E1E1E'}}>
+                República Zero Um
             </Text>
-        </View>
-        <View style={styles.container}>
-            <View style={styles.podiumContainer}>
-                <View style={styles.podiumCardFirst}>
-                    <View style={styles.podiumCardSecond}>
-                        <LinearGradient colors={['#36457D', '#36457D']} start={{x:1, y:0}} end={{x:0, y:1}} locations={[.2,0.7]} style={styles.background}/>
-                        <View style={styles.podiumCardSecondLeft}>
-                            <Text style={styles.medal}>🥈</Text>
-                            <Text style={styles.bigText}>2</Text>
-                            <ParticipantPhotoBubble index={0} participant={userVector[1]}/>
-                            <Text style={styles.bigText}>{userVector[1].name.split(' ')[0]}</Text>
-                            <View style={{display:'flex', flexDirection:'row', gap:16 , alignItems:'center'}}>
-                                <IconCommunity name={'star-four-points'} size={14} color={'#FFF'} style={{marginRight:'-15%'}}/>
-                                <Text style={styles.shortText}>{userVector[1].points} pontos</Text>
-                            </View>
-                            <View style={styles.enough}>
-
-                            </View>
-                        </View>
-                    </View>
-
-                    <LinearGradient colors={['#1F2C59', '#2B396D']} start={{x:1, y:0}} end={{x:0, y:1}} locations={[.2,0.7]} style={styles.background}/>
-                    <Text style={{...styles.medalFirst}}>🥇</Text>
-                    <Text style={styles.bigText}>1</Text>
-                    <ParticipantPhotoBubble index={0} participant={userVector[0]}/>
-                    <Text style={styles.bigText}>{userVector[0].name}</Text>
-                    <View style={{display:'flex', flexDirection:'row', gap:16 , alignItems:'center'}}>
-                        <IconCommunity name={'star-four-points'} size={14} color={'#FFF'} style={{marginRight:'-9%'}}/>
-                        <Text style={styles.shortText}>{userVector[0].points} pontos</Text>
-                    </View>
-
-                        <View style={styles.podiumCardThird}>
+            <View style={{display:'flex', width:'90%', alignItems:'flex-start', paddingTop:'10%'}}>
+                <Text style={{fontFamily:'Roboto-Medium', fontSize:24, textAlign:'center', color:'#1E1E1E'}}>
+                    Ranking
+                </Text>
+            </View>
+            <View style={styles.container}>
+                <View style={styles.podiumContainer}>
+                    <View style={styles.podiumCardFirst}>
+                        <View style={styles.podiumCardSecond}>
                             <LinearGradient colors={['#36457D', '#36457D']} start={{x:1, y:0}} end={{x:0, y:1}} locations={[.2,0.7]} style={styles.background}/>
-                            <View style={styles.podiumCardThirdRight}>
-                                <Text style={styles.medal}>🥉</Text>
-                                <Text style={styles.bigText}>3</Text>
-                                <ParticipantPhotoBubble index={0} participant={userVector[2]}/>
-                                <Text style={styles.bigText}>{userVector[2].name.split(' ')[0]}</Text>
+                            <View style={styles.podiumCardSecondLeft}>
+                                <Text style={styles.medal}>🥈</Text>
+                                <Text style={styles.bigText}>2</Text>
+                                <ParticipantPhotoBubble index={0} participant={userVector[1]}/>
+                                <Text style={styles.bigText}>{userVector[1].name.split(' ')[0]}</Text>
                                 <View style={{display:'flex', flexDirection:'row', gap:16 , alignItems:'center'}}>
                                     <IconCommunity name={'star-four-points'} size={14} color={'#FFF'} style={{marginRight:'-15%'}}/>
-                                    <Text style={styles.shortText}>{userVector[2].points} pontos</Text>
+                                    <Text style={styles.shortText}>{userVector[1].points} pontos</Text>
+                                </View>
+                                <View style={styles.enough}>
+
+                                </View>
+                            </View>
+                        </View>
+
+                        <LinearGradient colors={['#1F2C59', '#2B396D']} start={{x:1, y:0}} end={{x:0, y:1}} locations={[.2,0.7]} style={styles.background}/>
+                        <Text style={{...styles.medalFirst}}>🥇</Text>
+                        <Text style={styles.bigText}>1</Text>
+                        <ParticipantPhotoBubble index={0} participant={userVector[0]}/>
+                        <Text style={styles.bigText}>{userVector[0].name}</Text>
+                        <View style={{display:'flex', flexDirection:'row', gap:16 , alignItems:'center'}}>
+                            <IconCommunity name={'star-four-points'} size={14} color={'#FFF'} style={{marginRight:'-9%'}}/>
+                            <Text style={styles.shortText}>{userVector[0].points} pontos</Text>
+                        </View>
+
+                            <View style={styles.podiumCardThird}>
+                                <LinearGradient colors={['#36457D', '#36457D']} start={{x:1, y:0}} end={{x:0, y:1}} locations={[.2,0.7]} style={styles.background}/>
+                                <View style={styles.podiumCardThirdRight}>
+                                    <Text style={styles.medal}>🥉</Text>
+                                    <Text style={styles.bigText}>3</Text>
+                                    <ParticipantPhotoBubble index={0} participant={userVector[2]}/>
+                                    <Text style={styles.bigText}>{userVector[2].name.split(' ')[0]}</Text>
+                                    <View style={{display:'flex', flexDirection:'row', gap:16 , alignItems:'center'}}>
+                                        <IconCommunity name={'star-four-points'} size={14} color={'#FFF'} style={{marginRight:'-15%'}}/>
+                                        <Text style={styles.shortText}>{userVector[2].points} pontos</Text>
+                                    </View>
                                 </View>
                             </View>
                         </View>
                     </View>
+                    <ScrollView style={{width:'95%', paddingLeft:'5%', paddingVertical:'4%', borderRadius: 8, marginBottom:'30%'}}>
+                        {usersWithoutThree && usersWithoutThree.map((user, index) => (<View  key={user.id} style={{display:'flex', alignItems:'center', flexDirection:'row', gap:20, marginBottom:'2.5%', paddingLeft:'5%', borderRadius:20}}>
+                            <Text style={{fontFamily:'Inter-Bold', fontSize:14, textAlignVertical:'center', lineHeight:14}}>
+                                {index+4}
+                            </Text>
+                            <AuctionPointsLine user={user} isMinimum={false}/>
+                        </View>))}
+                    </ScrollView>
                 </View>
-                <ScrollView style={{width:'95%', paddingLeft:'5%', paddingVertical:'4%', borderRadius: 8, marginBottom:'30%'}}>
-                    {usersWithoutThree && usersWithoutThree.map((user, index) => (<View  key={user.id} style={{display:'flex', alignItems:'center', flexDirection:'row', gap:20, marginBottom:'2.5%', paddingLeft:'5%', borderRadius:20}}>
-                        <Text style={{fontFamily:'Inter-Bold', fontSize:14, textAlignVertical:'center', lineHeight:14}}>
-                            {index+4}
-                        </Text>
-                        <AuctionPointsLine user={user} isMinimum={false}/>
-                    </View>))}
-                </ScrollView>
             </View>
-        </View>
-    </SafeAreaView>
+        </SafeAreaView>
+        <RequestModalScreen modalConfig={{modalVisible:requestModal, setModalVisible:setRequestModal}}/>
+    </>
+    
   )
 }
 

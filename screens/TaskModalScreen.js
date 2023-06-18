@@ -4,8 +4,9 @@ import ModalTemplateScreen from './ModalTemplateScreen'
 import PatternButton from '../components/PatternButton'
 import { TouchableOpacity } from 'react-native'
 import IconCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
+import PatternModalButton from '../components/PatternModalButton'
 
-const TaskModalScreen = () => {
+const TaskModalScreen = (props) => {
     const onPressConcluirHandle = () => {
 
     }
@@ -15,11 +16,11 @@ const TaskModalScreen = () => {
     }
 
     const onPressEditarHandle = () => {
-        
+
     }
 
   return (
-    <ModalTemplateScreen>
+    <ModalTemplateScreen modalConfig={props.modalConfig}>
         <View style={{width:'100%', position:'relative', paddingVertical:'7.5%'}}>
             <View style={styles.container}>
                 <View style={styles.textContainer}>
@@ -34,8 +35,8 @@ const TaskModalScreen = () => {
                     </View>
                 </View>
                 <View>
-                    <PatternButton buttonConfig={{title:'Concluir tarefa', onPress:onPressConcluirHandle}}/>
-                    <PatternButton buttonConfig={{title:'Apagar tarefa', onPress:onPressApagarHandle, isRed:true}}/>
+                    <PatternModalButton buttonConfig={{title:'Concluir tarefa', onPress:onPressConcluirHandle}}/>
+                    <PatternModalButton buttonConfig={{title:'Apagar tarefa', onPress:onPressApagarHandle, isRed:true}}/>
                 </View>
             </View>
             <TouchableOpacity style={styles.editarBtn} onPress={onPressEditarHandle}>

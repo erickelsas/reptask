@@ -3,14 +3,15 @@ import React from 'react'
 import ModalTemplateScreen from './ModalTemplateScreen'
 import PatternButton from '../components/PatternButton'
 import IconCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
+import PatternModalButton from '../components/PatternModalButton'
 
-const FinalizeTaskModalScreen = () => {
+const FinalizeTaskModalScreen = (props) => {
     const onPressConcluirHandle = () => {
 
     }
 
   return (
-    <ModalTemplateScreen>
+    <ModalTemplateScreen modalConfig={props.modalConfig}>
         <View>
             <View style={styles.textContainer}>
                     <Text style={styles.title}>
@@ -23,7 +24,7 @@ const FinalizeTaskModalScreen = () => {
                         </Text>
                     </View>
                 </View>
-                <PatternButton buttonConfig={{title:'Concluir tarefa', onPress:onPressConcluirHandle}}/>
+                <PatternModalButton buttonConfig={{title:'Concluir tarefa', onPress:onPressConcluirHandle}}/>
         </View>
     </ModalTemplateScreen>
   )
