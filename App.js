@@ -24,9 +24,15 @@ import Tabs from './components/Tabs';
 
 import {AuthContext} from './contexts/AuthContext'
 import AwaitingScreen from './screens/AwaitingScreen';
+import ModalTemplateScreen from './screens/ModalTemplateScreen';
+import AssignTaskModalScreen from './screens/AssignTaskModalScreen';
+import TaskModalScreen from './screens/TaskModalScreen';
+import DeleteTaskModalScreen from './screens/DeleteTaskModalScreen';
+import FinalizeTaskModalScreen from './screens/FinalizeTaskModalScreen';
+import RequestModalScreen from './screens/RequestModalScreen';
 
 export default function App() {
-  const authHook = useState(false);
+  const authHook = useState(true);
 
   const [fontsLoaded] = useFonts({
     'Inter-Bold': require('./assets/fonts/Inter-Bold.ttf'),
@@ -62,17 +68,17 @@ export default function App() {
             <AuthContext.Provider value={authHook}>
               {authHook[0] && 
             <Stack.Navigator initialRouteName="Tabs" screenOptions={{headerShown:false}}>
-              <Stack.Screen name={"Tabs"} component={Tabs}/>
+                <Stack.Screen name={"Tabs"} component={Tabs}/>
             </Stack.Navigator>}
 
               {!authHook[0] &&
                 <Stack.Navigator initialRouteName="Cadastro" screenOptions={{headerShown:false}}>
-                  <Stack.Screen name={"Cadastro"} component={SignUpScreen}/>
-                  <Stack.Screen name={"Login"} component={LoginScreen} />
-                  <Stack.Screen name={"Tipo de conta"} component={AccountTypeScreen}/>
-                  <Stack.Screen name={"Criar nova casa"} component={AcessHouseScreen}/>
-                  <Stack.Screen name={"Solicitar entrada"} component={AdminCadastrarCasaScreen}/>
-                  <Stack.Screen name={"Esperando"} component={AwaitingScreen}/>
+                    <Stack.Screen name={"Cadastro"} component={SignUpScreen}/>
+                    <Stack.Screen name={"Login"} component={LoginScreen} />
+                    <Stack.Screen name={"Tipo de conta"} component={AccountTypeScreen}/>
+                    <Stack.Screen name={"Criar nova casa"} component={AcessHouseScreen}/>
+                    <Stack.Screen name={"Solicitar entrada"} component={AdminCadastrarCasaScreen}/>
+                    <Stack.Screen name={"Esperando"} component={AwaitingScreen}/>
                 </Stack.Navigator>
               }
             </AuthContext.Provider>

@@ -5,16 +5,21 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const ProfileHeader = (props) => {
     const date = new Date();
+
+    const onPressHandle = () => {
+        props.setModalVisible(true);
+    }
+
   return (
     <SafeAreaView style={styles.component}>
       <View style={styles.container}>
-        <TouchableOpacity style={styles.content}><Icon name={'user-plus'} size={26} color={'#202020'}/></TouchableOpacity>
+        <TouchableOpacity style={styles.content} onPress={onPressHandle}><Icon name={'user-plus'} size={26} color={'#202020'}/></TouchableOpacity>
         <View style={{...styles.content, ...styles.textContent}}>
             <Text style={styles.textTitle} numberOfLines={1}>{props.user.name}</Text>
             <Text>{`${date.toLocaleDateString()}`}</Text>
         </View>
         <View style={styles.content}>
-            <TouchableOpacity style={styles.photoContainer}>
+            <TouchableOpacity style={styles.photoContainer} >
                 <Image source={{uri: props.user.url}} style={{width:'100%', height:'100%'}}/>
             </TouchableOpacity>
         </View>

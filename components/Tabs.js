@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 import RankingScreen from '../screens/RankingScreen';
 import AddTaskScreen from '../screens/AddTaskScreen';
 import BidAuctionScreen from '../screens/BidAuctionScreen';
+import RequestModalScreen from '../screens/RequestModalScreen';
 
 const Tab = createBottomTabNavigator();
 
