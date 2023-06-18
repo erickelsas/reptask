@@ -8,7 +8,7 @@ import TasksTittle from '../components/TasksTittle'
 import Tasks from '../components/Tasks'
 import TasksOfHome from '../components/TasksOfHome'
 
-const AdminHome = () => {
+const Home = () => {
   return (
     <View style={styles.screen}>
         <ProfileHeader user={{name:'Luísa', url:'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'}} style={styles.header}/>
@@ -32,7 +32,7 @@ const AdminHome = () => {
   )
 }
 
-export default AdminHome
+export default Home
 
 const styles = StyleSheet.create({
     screen:{
