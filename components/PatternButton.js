@@ -5,7 +5,7 @@ const PatternButton = (props) => {
 
   return (
     <View>
-      <TouchableOpacity onPress={props.buttonConfig.onPressButton}>
+      <TouchableOpacity onPress={props.buttonConfig.onPress}>
         <View style={props.buttonConfig.isRed != undefined ? styles.redButton:styles.blueButton}>
           {props.children}
           <Text style={styles.text}>

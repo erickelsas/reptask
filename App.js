@@ -5,7 +5,7 @@ import ParticipantPhoto from './components/ParticipantPhotoBubble';
 import NumberPhotoBubble from './components/NumberPhotoBubble';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import BubbleVector from './components/BubbleVector';
 import ProfileHeader from './components/ProfileHeader';
 import StartAuctionScreen from './screens/StartAuctionScreen';
@@ -17,13 +17,17 @@ import SignUpScreen from './screens/SignUpScreen';
 import AccountTypeScreen from './screens/AccountTypeScreen';
 import AcessHouseScreen from './screens/AcessHouseScreen';
 import AdminCadastrarCasaScreen from './screens/AdminCadastrarCasaScreen';
-import ResultAuctionScreen from './screens/ResultAuctionScreen'
+import AdminHome from './screens/AdminHome';
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Tabs from './components/Tabs';
 
-SplashScreen.preventAutoHideAsync();
+import {AuthContext} from './contexts/AuthContext'
+
 export default function App() {
-  const [menu, setMenu] = useState(false);
-  
+  const authHook = useState(true);
+
   const [fontsLoaded] = useFonts({
     'Inter-Bold': require('./assets/fonts/Inter-Bold.ttf'),
     'Inter-Black': require('./assets/fonts/Inter-Black.ttf'),
@@ -49,14 +53,27 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
-
+  const Stack = createNativeStackNavigator();
+  
   return (
-    <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
-      <View style={{flex:0.9, width:'100%', alignItems:'center', justifyContent:'center'}}>
-        <AdminCadastrarCasaScreen/>
-      </View>
-      {menu && <Menu style={styles.menu} selected='trophy'/>}
-    </SafeAreaView>
+        <NavigationContainer>
+            <AuthContext.Provider value={authHook}>
+              {authHook[0] && 
+            <Stack.Navigator initialRouteName="Tabs" screenOptions={{headerShown:false}}>
+              <Stack.Screen name={"Tabs"} component={Tabs}/>
+            </Stack.Navigator>}
+
+              {!authHook[0] &&
+                <Stack.Navigator initialRouteName="Cadastro" screenOptions={{headerShown:false}}>
+                  <Stack.Screen name={"Cadastro"} component={SignUpScreen}/>
+                  <Stack.Screen name={"Login"} component={LoginScreen} />
+                  <Stack.Screen name={"Tipo de conta"} component={AccountTypeScreen}/>
+                  <Stack.Screen name={"Criar nova casa"} component={AcessHouseScreen}/>
+                  <Stack.Screen name={"Solicitar entrada"} component={AdminCadastrarCasaScreen}/>
+                </Stack.Navigator>
+              }
+            </AuthContext.Provider>
+        </NavigationContainer>
   );
 }
 
@@ -67,19 +84,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
-  menu: {
-    flex: 0.1
-  },
-  viewWithMenu:{
-    flex:0.9, 
-    width:'100%', 
-    alignItems:'center', 
-    justifyContent:'center'
-  },
-  viewWithoutMenu:{
-    flex:1, 
-    width:'100%', 
-    alignItems:'center', 
-    justifyContent:'center'
-  }
 });

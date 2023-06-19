@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View, SafeAreaView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import ProfileHeader from '../components/ProfileHeader'
 import ScreenBoard from '../components/ScreenBoard'
@@ -15,19 +15,19 @@ const ResultAuctionScreen = () => {
   }, [userVector])
 
   return (
-    <View style={styles.screen}>
+    <SafeAreaView style={styles.screen}>
         <ProfileHeader user={{name:'Luísa', url:'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'}} style={styles.header}/>
         <ScreenBoard style={styles.board}>
           <PageTitle text={{title:'Resultado do leilão', subtitle:'Atribua a tarefa do leilão ao usuário'}}/>
           <View style={styles.backgroundTask}>
             <TaskNameAndMinimum theme='dark' task={{name:'Tirar o lixo', minimum:15}}/>
           </View>
-          <ScrollView style={{width:'100%', marginTop:'15%', height:'80%', backgroundColor:'#E7E7E7', paddingLeft:'5%', paddingVertical:'4%', borderRadius: 8, elevation: 10, shadowColor: '#000'}}>
+          <ScrollView showsVerticalScrollIndicator={false} style={{width:'100%', marginTop:'15%', height:'80%', backgroundColor:'#E7E7E7', paddingLeft:'5%', paddingVertical:'4%', borderRadius: 8, elevation: 10, shadowColor: '#000'}}>
             <AuctionPointsLine user={userVector[0]} isMinimum={true}/>
             {userVectorWithoutMinimal && userVectorWithoutMinimal.map((user) => (<AuctionPointsLine key={user.id} user={user} isMinimum={false}/>))}
           </ScrollView>
         </ScreenBoard>
-    </View>
+    </SafeAreaView>
   )
 }
 

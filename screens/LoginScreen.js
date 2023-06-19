@@ -1,10 +1,16 @@
 import { KeyboardAvoidingView, StyleSheet, Text, TouchableWithoutFeedback, Keyboard, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
 import InputText from '../components/InputText'
 import PatternButton from '../components/PatternButton';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { AuthContext } from '../contexts/AuthContext';
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation, route}) => {
+    const authHook = useContext(AuthContext);
+    const auth = authHook[0];
+    const setAuth = authHook[1];
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -17,15 +23,15 @@ const LoginScreen = () => {
     }
 
     const onPressHandleEntrar= (e) => {
-
+        setAuth(true);
     }
 
     const onPressHandleRecuperar = (e) => {
-
+        
     }
 
   return (
-    <View style={styles.screen}>
+    <SafeAreaView style={styles.screen}>
         <View style={{display:'flex', justifyContent:'center', alignItems:'center', width:'100%', height:'25%'}}>
             <Text style={styles.text}>Login</Text>
         </View>
@@ -51,7 +57,7 @@ const LoginScreen = () => {
                 </KeyboardAvoidingView>
             </View>
         </View>              
-    </View>
+    </SafeAreaView>
   )
 }
 

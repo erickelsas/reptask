@@ -3,18 +3,18 @@ import React from 'react'
 import Filter from '../assets/bestplace.svg'
 import PatternButton from '../components/PatternButton'
 import Icon from 'react-native-vector-icons/FontAwesome5'
-import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
-const AccountTypeScreen = () => {
+const AccountTypeScreen = ({ route, navigation}) => {
   const onPressMorador = () => {
-
+    navigation.navigate('Criar nova casa');
   }
 
   const onPressAdmin = () => {
-
+    navigation.navigate('Solicitar entrada');
   }
   return (
-    <View style={styles.screen}>
+    <SafeAreaView style={styles.screen}>
       <Filter width={300}/>
       <View style={styles.containerContent}>
         <Text style={styles.title}>
@@ -36,7 +36,7 @@ const AccountTypeScreen = () => {
           </PatternButton>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 
