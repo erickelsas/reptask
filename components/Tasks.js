@@ -88,7 +88,6 @@ const styles = StyleSheet.create({
         borderRadius:12,
         borderWidth:3,
         borderColor:'#878787',
-        elevation: 20,
         display:'flex',
         justifyContent:'center',
         alignItems:'center'

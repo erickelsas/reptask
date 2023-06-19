@@ -1,36 +1,36 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, ScrollView} from 'react-native'
 import React, { useState } from 'react'
 import ProfileHeader from '../components/ProfileHeader'
 import ScreenBoard from '../components/ScreenBoard'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import PageJustTittle from '../components/PageJustTittle'
-import CardPendentTask from '../components/CardPendentTask'
 import TasksTittle from '../components/TasksTittle'
 import Tasks from '../components/Tasks'
-import TasksOfHome from '../components/TasksOfHome'
+import CardPoints from '../components/CardPoints'
+import PointsTitle from '../components/PointsTitle'
+import CardPendentTask from '../components/CardPendentTask'
 
-const Home = () => {
-  return (
-    <View style={styles.screen}>
-        <ProfileHeader user={{name:'Luísa', url:'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'}} style={styles.header}/>
+
+const Home = () => (
+    <SafeAreaView style={styles.screen}>
+        <ProfileHeader user={{ name: 'Luísa', url: 'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80' }} style={styles.header} />
         <ScreenBoard style={styles.board}>
-            <ScrollView showsVerticalScrollIndicator={false} style={{width: '100%'}}>
-                <PageJustTittle text={{title:'Minha Casa'}}/>
+            <ScrollView showsVerticalScrollIndicator={false} style={{ width: '100%', height: '100%'}}>
+                <PageJustTittle text={{ title: 'REPNAME' }}></PageJustTittle>
                 <View style={styles.block}>
-                    <CardPendentTask text={{repname:'Concordaro', check:'1', uncheck:'2'}}/>
-                    <TasksTittle text={{title:'Minhas tarefas'}} buttonConfig={{title:'Entrar'}}/>
-                    <Tasks text={{task:'Lavar roupa', points:'5'}}></Tasks>
-                    <Tasks text={{task:'Lavar o banheiro', points:'8'}}></Tasks>
-                    <TasksTittle text={{title:'Tarefas da casa'}} buttonConfig={{title:'Entrar'}}/>
-                    <TasksOfHome text={{task:'Lavar roupa', points:'5'}}/>
-                    <TasksOfHome text={{task:'Lavar roupa', points:'5'}}/>
-                    <TasksOfHome text={{task:'Lavar roupa', points:'5'}}/>
-                    <TasksOfHome text={{task:'Lavar roupa', points:'5'}}/>
+                    <TasksTittle text={{ title: 'Minhas tarefas' }}></TasksTittle>
+                    <Tasks text={{ task: 'Lavar roupa', points: '1' }} />
+                    <Tasks text={{ task: 'Lavar roupa', points: '2' }} />
+                    <Tasks text={{ task: 'Lavar roupa', points: '3' }} />
+                    
+                    <PointsTitle text={{ title: 'Pontuação' }} />
+
+                    <CardPoints text={{pontos:'45', concluidas:'5'}}/>
                 </View>
             </ScrollView>
         </ScreenBoard>
-    </View>
-  )
-}
+    </SafeAreaView>
+)
 
 export default Home
 
@@ -42,8 +42,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         height:'100%',
         width:'100%',
-        flex: 1,
-        paddingTop: '17%'
+        paddingTop: '17%',
     },
     block:{
         width:'100%',
@@ -54,8 +53,4 @@ const styles = StyleSheet.create({
         flexDirection:'column',
         alignItems:'center',
     },
-    scroll:{
-        width: '100%',
-        height: '100%'
-    }
 })
