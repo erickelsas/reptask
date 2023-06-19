@@ -7,11 +7,11 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 const AccountTypeScreen = ({ route, navigation}) => {
   const onPressMorador = () => {
-    navigation.navigate('Criar nova casa');
+    navigation.navigate('Solicitar entrada');
   }
 
   const onPressAdmin = () => {
-    navigation.navigate('Solicitar entrada');
+    navigation.navigate('Criar nova casa');
   }
   return (
     <SafeAreaView style={styles.screen}>

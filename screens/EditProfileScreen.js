@@ -8,28 +8,24 @@ import PatternButton from '../components/PatternButton'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Menu from '../components/Menu'
 
-const EditTaskScreen = ({route}) => {
-  const [title, setTitle] = useState('');
-  const [points, setPoints] = useState(0);
-  const [description, setDescription] = useState('');
+const EditTaskScreen = ({route, navigation}) => {
+  const [name, setName] = useState('');
+  const [url, setUrl] = useState('0');
 
-  const onChangeTitleHandle = (e) => {
-    setTitle(e.value);
+  const onChangeNome = (e) => {
+    setName(e.value);
   } 
 
-  const onChangePointsHandle = (e) => {
-    setPoints(e.value);
+  const onChangeUrl = (e) => {
+    setUrl(e.value);
   } 
 
-  const onChangeDescriptionHandle = (e) => {
-    setDescription(e.value);
-  } 
 
   const onPressEdit = (e) => {
 
   }
 
-  const onPressDelete = (e) => {
+  const onPressPass = (e) => {
 
   }
 
@@ -38,22 +34,19 @@ const EditTaskScreen = ({route}) => {
       <SafeAreaView style={styles.screen}>
         <ProfileHeader navigation={navigation} user={{name:'Luísa', url:'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'}} style={styles.header}/>
           <ScreenBoard style={styles.board}>
-            <PageTitle text={{title:`Editar tarefa`, subtitle:`República 01`}}/>
+            <PageTitle text={{title:`Configurar perfil`, subtitle:``}}/>
             <KeyboardAvoidingView                
               behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
               style={{flex:1, width:'100%'}}>
               <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.formContainer}>
                   <View style={styles.form}>
-                    <InputText inputConfig={{secure:false, onChange:onChangeTitleHandle}}>Título</InputText>
-                    <InputText inputConfig={{secure:false, onChange:onChangePointsHandle, keyboardType:'numeric'}}>Pontuação</InputText>
-                    <InputText inputConfig={{secure:false, onChange:onChangeDescriptionHandle, lines:3, multiline:true}}>Descrição</InputText>
-                    <View style={styles.buttonContainer}>
-                      <PatternButton buttonConfig={{title:'Editar tarefa', onPressButton:onPressEdit}}/>
-                      <PatternButton buttonConfig={{title:'Apagar tarefa', onPressButton:onPressDelete, isRed: true}}/>
+                    <InputText inputConfig={{secure:false, onChange:onChangeNome}}>Apelido/Nome</InputText>
+                    <InputText inputConfig={{secure:false, onChange:onChangeUrl}}>URL da Foto</InputText>
+                      <PatternButton buttonConfig={{title:'Editar perfil', onPressButton:onPressEdit}}/>
+                      <PatternButton buttonConfig={{title:'Mudar senha', onPressButton:onPressPass}}/>
                     </View>
                   </View>
-                </View>
               </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
           </ScreenBoard>

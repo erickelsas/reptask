@@ -18,7 +18,7 @@ const icon = (iconName, size, color, colorSelected, focused) => {
 const Tabs = () => {
   return (
     <Tab.Navigator initialRouteName='New Auction' screenOptions
-    ={{tabBarStyle:styles.menu}}>
+    ={{tabBarStyle:styles.menu, tabBarHideOnKeyboard:true}} >
       <Tab.Screen name='Start Auction' component={RankingScreen} options={{tabBarLabel:() => null, headerShown:false, tabBarIcon:({focused}) => (
           <TouchableOpacity style={styles.menuIcon}>
          <View style={focused ? styles.backgroundIcon:{}}>

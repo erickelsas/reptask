@@ -16,7 +16,7 @@ const AssignTaskModalScreen = (props) => {
   return (
     <ModalTemplateScreen modalConfig={props.modalConfig}>
         <PageTitle text={{title:'Moradores', subtitle:'Selecione um morador para atribuir a tarefa'}}/>
-        <ScrollView style={{width:'80%', height:'50%', marginVertical:'7.5%'}}>
+        <ScrollView style={{width:'80%', height:'50%', marginVertical:'7.5%'}} showsVerticalScrollIndicator={false}>
             {moradores && moradores.map((user) => (<AssignTaskLine data={{checked, setChecked, user}}/>))}
         </ScrollView>
         <PatternModalButton buttonConfig={{onPress:onPressHandle, title:'Atribuir tarefa'}}/>

@@ -16,13 +16,11 @@ const RankingScreen = ({ route, navigation }) => {
     useEffect(() => {
         setUsersWithoutThree(userVector.slice(3));
     }, [userVector]);
-
-    const [requestModal, setRequestModal] = useState(false);
     
   return (
     <>
         <SafeAreaView style={styles.screen}>
-        <ProfileHeader setModalVisible={setRequestModal} navigation={navigation} user={{name:'Luísa', url:'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'}} style={styles.header}/>
+        <ProfileHeader  navigation={navigation} user={{name:'Luísa', url:'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'}} style={styles.header}/>
         <View style={{display:'flex', height:'94.5%', paddingTop:'10%'}}>
             <Text style={{fontFamily:'Roboto-Bold', fontSize:24, textAlign:'center', color:'#1E1E1E'}}>
                 República Zero Um
@@ -77,7 +75,7 @@ const RankingScreen = ({ route, navigation }) => {
                             </View>
                         </View>
                     </View>
-                    <ScrollView style={{width:'95%', paddingLeft:'5%', paddingVertical:'4%', borderRadius: 8, marginBottom:'30%'}}>
+                    <ScrollView style={{width:'95%', paddingLeft:'5%', paddingVertical:'4%', borderRadius: 8, marginBottom:'30%'}} showsVerticalScrollIndicator={false}>
                         {usersWithoutThree && usersWithoutThree.map((user, index) => (<View  key={user.id} style={{display:'flex', alignItems:'center', flexDirection:'row', gap:20, marginBottom:'2.5%', paddingLeft:'5%', borderRadius:20}}>
                             <Text style={{fontFamily:'Inter-Bold', fontSize:14, textAlignVertical:'center', lineHeight:14}}>
                                 {index+4}
@@ -88,7 +86,6 @@ const RankingScreen = ({ route, navigation }) => {
                 </View>
             </View>
         </SafeAreaView>
-        <RequestModalScreen modalConfig={{modalVisible:requestModal, setModalVisible:setRequestModal}}/>
     </>
     
   )

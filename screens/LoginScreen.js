@@ -5,25 +5,59 @@ import InputText from '../components/InputText'
 import PatternButton from '../components/PatternButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../contexts/AuthContext';
+import { useLogin } from '../hooks/useLogin';
+import { onChange } from 'react-native-reanimated';
+import { UserContext } from '../contexts/UserContext';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const LoginScreen = ({navigation, route}) => {
-    const authHook = useContext(AuthContext);
-    const auth = authHook[0];
-    const setAuth = authHook[1];
+    const authState = useContext(AuthContext);
+    const userState = useContext(UserContext);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState(false);
 
     const onChangeEmailHandle = (e) => {
-        setEmail(e.value);
+        setEmail(e);
     }
 
     const onChangePasswordHandle = (e) => {
-        setPassword(e.value);
+        setPassword(e);
     }
 
-    const onPressHandleEntrar= (e) => {
-        setAuth(true);
+    const onPressHandleEntrar= async () => {
+        const loginObj = {email, password};
+        let res = await fetch('https://reptaskbackapi.azurewebsites.net/api/Users/login', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(loginObj),
+        });
+        let json = await res.json();
+        
+        if(!json.token){
+            setError(true);
+            return;
+        }
+        
+        const token = json.token
+
+        authState[1](token);
+
+        res = await fetch(`https://reptaskbackapi.azurewebsites.net/api/Users/byemail/${email}`, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization':`Bearer ${token}`
+            }
+        });
+
+        json = await res.json();
+
+        userState[1](json);
+        setError(false);
     }
 
     const onPressHandleRecuperar = (e) => {
@@ -43,8 +77,8 @@ const LoginScreen = ({navigation, route}) => {
                     style={{flex:1, width:'100%'}}>
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
                         <>
-                            <InputText light={true} inputConfig={{secure:false, onChange:onChangeEmailHandle, placeholder:'xxxxx@email.com'}}>E-mail</InputText>
-                            <InputText light={true} inputConfig={{secure:true, onChange:onChangePasswordHandle}}>Senha</InputText>
+                            <InputText light={true} inputConfig={{secure:false, onChange:onChangeEmailHandle, placeholder:'xxxxx@email.com', value:email}}>E-mail</InputText>
+                            <InputText light={true} inputConfig={{secure:true, onChange:onChangePasswordHandle, value:password}}>Senha</InputText>
                             <View style={{width:'90%', marginLeft:'5%'}}>
                                 <Text style={styles.recuperarSenha} onPress={onPressHandleRecuperar}>
                                     <Text style={styles.recuperarUm}>Esqueceu sua senha? </Text>
@@ -52,6 +86,8 @@ const LoginScreen = ({navigation, route}) => {
                                 </Text>
                                 <PatternButton buttonConfig={{title:'Entrar', onPress:onPressHandleEntrar}}/>
                             </View>
+                            {error && <Text style={{fontSize:16, color:'#FF0000', marginTop:'5%', textAlign:'center'}}>E-mail ou senha incorretos!</Text>}
+                            {!error && <Text style={{fontSize:16, color:'#FF0000', marginTop:'5%', textAlign:'center'}}></Text>}
                         </>
                     </TouchableWithoutFeedback>
                 </KeyboardAvoidingView>

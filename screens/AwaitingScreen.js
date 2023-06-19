@@ -8,7 +8,7 @@ import PatternButton from '../components/PatternButton'
 
 const AwaitingScreen = ({navigation}) => {
     const onPressHandle = () => {
-        
+        navigation.navigate("Solicitar entrada");
     }
 
     const onPressHandleDeslogar = () => {
