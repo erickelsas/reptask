@@ -2,6 +2,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import StartAuctionScreen from '../screens/StartAuctionScreen';
 import ResultAuctionScreen from '../screens/ResultAuctionScreen';
 import EditTaskScreen from '../screens/EditTaskScreen';
+import AdminHome from '../screens/AdminHome'
+import Home from '../screens/Home';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import RankingScreen from '../screens/RankingScreen';
@@ -17,6 +19,7 @@ const icon = (iconName, size, color, colorSelected, focused) => {
 
 const Tabs = () => {
   return (
+
     <Tab.Navigator initialRouteName='New Auction' screenOptions
     ={{tabBarStyle:styles.menu, tabBarHideOnKeyboard:true}} >
       <Tab.Screen name='Start Auction' component={RankingScreen} options={{tabBarLabel:() => null, headerShown:false, tabBarIcon:({focused}) => (

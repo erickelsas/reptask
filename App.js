@@ -7,6 +7,7 @@ import SignUpScreen from './screens/SignUpScreen';
 import AccountTypeScreen from './screens/AccountTypeScreen';
 import AcessHouseScreen from './screens/AcessHouseScreen';
 import AdminCadastrarCasaScreen from './screens/AdminCadastrarCasaScreen';
+import AdminHome from './screens/AdminHome';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -22,7 +23,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 export default function App() {
   const authState = useState('');
   const userState = useState({});
-  const endpointsState = useState({url:'https://reptaskbackapi.azurewebsites.net/api/'});
+  const endpointsState = useState({url:'https://reptaskbackapi.azurewebsites.net/api
 
   const [fontsLoaded] = useFonts({
     'Inter-Bold': require('./assets/fonts/Inter-Bold.ttf'),
@@ -49,11 +50,9 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
-
   const Stack = createNativeStackNavigator();
   
   return (
-
         <NavigationContainer>
           <EndPointsContext.Provider value={endpointsState}>
             <AuthContext.Provider value={authState}>

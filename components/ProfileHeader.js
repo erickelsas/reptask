@@ -93,5 +93,5 @@ const styles = StyleSheet.create({
         fontSize:13,
         fontFamily:'Inter-Medium',
         color:'#5A5A5A',
-    }
+    }
 })
