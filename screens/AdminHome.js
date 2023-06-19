@@ -8,6 +8,7 @@ import TasksTittle from '../components/TasksTittle'
 import Tasks from '../components/Tasks'
 import TasksOfHome from '../components/TasksOfHome'
 
+
 const AdminHome = () => {
   return (
     <View style={styles.screen}>
