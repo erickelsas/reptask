@@ -1,30 +1,82 @@
 import { KeyboardAvoidingView, StyleSheet, Text, TouchableWithoutFeedback, Keyboard, View, Image, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
 import InputText from '../components/InputText'
 import PatternButton from '../components/PatternButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { UserContext } from '../contexts/UserContext';
+import { AuthContext } from '../contexts/AuthContext';
 
 const SignUpScreen = ({route, navigation}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [nickname, setNickname] = useState('');
-    const [checkbox, setCheckbox] = useState(true);
+    const [checkbox, setCheckbox] = useState(false);
+    const [error, setError] = useState(false);
+
+    const authState = useContext(AuthContext);
+    const userState = useContext(UserContext);
 
     const onChangeEmailHandle = (e) => {
-        setEmail(e.value);
+        setEmail(e);
     }
 
     const onChangePasswordHandle = (e) => {
-        setPassword(e.value);
+        setPassword(e);
     }
 
     const onChangeNicknameHandle = (e) => {
-        setNickname(e.value);
+        setNickname(e);
     }
 
-    const onPressHandleEntrar= (e) => {
-        navigation.navigate("Tipo de conta");
+    const onPressHandleEntrar = async () => {
+        let re =/^(\s?[^\s,]+@[^\s,]+\.[^\s,]+\s?,)*(\s?[^\s,]+@[^\s,]+\.[^\s,]+)$/;
+        if(re.test(email) && password.length >= 4 && nickname != '' && checkbox){
+            const userObj = {email, password, nickname};
+            let res = await fetch('https://reptaskbackapi.azurewebsites.net/api/Users', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(userObj),
+            });
+
+            const loginObj = {email, password};
+            res = await fetch('https://reptaskbackapi.azurewebsites.net/api/Users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(loginObj),
+            });
+            let json = await res.json();
+            
+            if(!json.token){
+                setError(true);
+                return;
+            }
+            
+            const token = json.token
+    
+            authState[1](token);
+
+            
+            res = await fetch(`https://reptaskbackapi.azurewebsites.net/api/Users/byemail/${email}`, {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                    'Authorization':`Bearer ${token}`
+                }
+            });
+
+            json = await res.json();
+
+            userState[1](json);
+
+            navigation.navigate("Tipo de conta");
+
+            setError(false);
+        }
     }
 
     const onPressHandleFazerLogin = (e) => {
@@ -69,6 +121,8 @@ const SignUpScreen = ({route, navigation}) => {
                                     <Text style={styles.fazerLoginDois}>Fazer login</Text>
                                 </Text>
                             </View>
+                            {error && <Text style={{fontSize:16, color:'#FF0000', marginTop:'5%', textAlign:'center'}}>Hovue um erro, tente novamente!</Text>}
+                            {!error && <Text style={{fontSize:16, color:'#FF0000', marginTop:'5%', textAlign:'center'}}></Text>}
                         </>
                     </TouchableWithoutFeedback>
                 </KeyboardAvoidingView>

@@ -8,7 +8,7 @@ import PatternButton from '../components/PatternButton'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Menu from '../components/Menu'
 
-const EditTaskScreen = ({route}) => {
+const AddTaskScreen = ({route, navigation}) => {
   const [title, setTitle] = useState('');
   const [points, setPoints] = useState(0);
   const [description, setDescription] = useState('');
@@ -25,20 +25,16 @@ const EditTaskScreen = ({route}) => {
     setDescription(e.value);
   } 
 
-  const onPressEdit = (e) => {
-
-  }
-
-  const onPressDelete = (e) => {
+  const onPressAdd = (e) => {
 
   }
 
   return (
     <>
       <SafeAreaView style={styles.screen}>
-        <ProfileHeader navigation={navigation} user={{name:'Luísa', url:'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'}} style={styles.header}/>
+          <ProfileHeader  navigation={navigation} user={{name:'Luísa', url:'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'}} style={styles.header}/>
           <ScreenBoard style={styles.board}>
-            <PageTitle text={{title:`Editar tarefa`, subtitle:`República 01`}}/>
+            <PageTitle text={{title:`Adicionar tarefa`, subtitle:`República 01`}}/>
             <KeyboardAvoidingView                
               behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
               style={{flex:1, width:'100%'}}>
@@ -47,10 +43,9 @@ const EditTaskScreen = ({route}) => {
                   <View style={styles.form}>
                     <InputText inputConfig={{secure:false, onChange:onChangeTitleHandle}}>Título</InputText>
                     <InputText inputConfig={{secure:false, onChange:onChangePointsHandle, keyboardType:'numeric'}}>Pontuação</InputText>
-                    <InputText inputConfig={{secure:false, onChange:onChangeDescriptionHandle, lines:3, multiline:true}}>Descrição</InputText>
+                    <InputText inputConfig={{secure:false, onChange:onChangeTitleHandle, lines:3, multiline:true}}>Descrição</InputText>
                     <View style={styles.buttonContainer}>
-                      <PatternButton buttonConfig={{title:'Editar tarefa', onPressButton:onPressEdit}}/>
-                      <PatternButton buttonConfig={{title:'Apagar tarefa', onPressButton:onPressDelete, isRed: true}}/>
+                      <PatternButton buttonConfig={{title:'Adicionar tarefa', onPressButton:onPressAdd}}/>
                     </View>
                   </View>
                 </View>
@@ -63,7 +58,7 @@ const EditTaskScreen = ({route}) => {
   )
 }
 
-export default EditTaskScreen
+export default AddTaskScreen
 
 const styles = StyleSheet.create({
     screen:{

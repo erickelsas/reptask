@@ -8,19 +8,42 @@ import InputText from '../components/InputText'
 import PatternButton from '../components/PatternButton'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { AuthContext } from '../contexts/AuthContext'
+import { UserContext } from '../contexts/UserContext'
 
 const AdminCadastrarCasaScreen = ({ route, navigation}) => {
-    const authHook = useContext(AuthContext);
-    const auth = authHook[0];
-    const setAuth = authHook[1];
+    const authState = useContext(AuthContext);
+    const userState = useContext(UserContext);
 
     const [name, setName] = useState('');
+
     const onChangeTextHandle = (e) => {
-        setName(e.value);
+        setName(e);
     }
 
-    const onPressHandle = () => {
-        setAuth(true);
+    const onPressHandle = async () => {
+        if(name.length == 0){
+            return;
+        }
+
+        
+        let res = await fetch(`https://reptaskbackapi.azurewebsites.net/api/Houses`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization':`Bearer ${authState[0]}`
+            },
+            body: JSON.stringify({name, owner: userState[0].id}),
+        });
+
+        res = await fetch(`https://reptaskbackapi.azurewebsites.net/api/Users/byemail/${userState[0].email}`, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization':`Bearer ${authState[0]}`
+            }
+        });
+
+        const json = await res.json();
     }
 
   return (

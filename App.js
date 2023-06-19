@@ -1,17 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
-import Menu from './components/Menu';
-import ParticipantPhoto from './components/ParticipantPhotoBubble';
-import NumberPhotoBubble from './components/NumberPhotoBubble';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback, useEffect, useState } from 'react';
-import BubbleVector from './components/BubbleVector';
-import ProfileHeader from './components/ProfileHeader';
-import StartAuctionScreen from './screens/StartAuctionScreen';
-
-import ResultAuctionScreen from './screens/ResultAuctionScreen';
-import EditTaskScreen from './screens/EditTaskScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import AccountTypeScreen from './screens/AccountTypeScreen';
@@ -22,11 +12,18 @@ import AdminHome from './screens/AdminHome';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Tabs from './components/Tabs';
+import EditProfileScreen from './screens/EditProfileScreen';
 
 import {AuthContext} from './contexts/AuthContext'
+import AwaitingScreen from './screens/AwaitingScreen';
+import { EndPointsContext } from './contexts/EndPointsContext';
+import { UserContext } from './contexts/UserContext';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function App() {
-  const authHook = useState(true);
+  const authState = useState('');
+  const userState = useState({});
+  const endpointsState = useState({url:'https://reptaskbackapi.azurewebsites.net/api
 
   const [fontsLoaded] = useFonts({
     'Inter-Bold': require('./assets/fonts/Inter-Bold.ttf'),
@@ -57,22 +54,35 @@ export default function App() {
   
   return (
         <NavigationContainer>
-            <AuthContext.Provider value={authHook}>
-              {authHook[0] && 
-            <Stack.Navigator initialRouteName="Tabs" screenOptions={{headerShown:false}}>
-              <Stack.Screen name={"Tabs"} component={Tabs}/>
-            </Stack.Navigator>}
-
-              {!authHook[0] &&
+          <EndPointsContext.Provider value={endpointsState}>
+            <AuthContext.Provider value={authState}>
+              <UserContext.Provider value={userState}>
+                
+                {userState[0].role == undefined &&                 
                 <Stack.Navigator initialRouteName="Cadastro" screenOptions={{headerShown:false}}>
-                  <Stack.Screen name={"Cadastro"} component={SignUpScreen}/>
-                  <Stack.Screen name={"Login"} component={LoginScreen} />
-                  <Stack.Screen name={"Tipo de conta"} component={AccountTypeScreen}/>
-                  <Stack.Screen name={"Criar nova casa"} component={AcessHouseScreen}/>
-                  <Stack.Screen name={"Solicitar entrada"} component={AdminCadastrarCasaScreen}/>
+                    <Stack.Screen name={"Cadastro"} component={SignUpScreen}/>
+                    <Stack.Screen name={"Login"} component={LoginScreen} />
+                </Stack.Navigator>}
+
+                {userState[0].role == 'NONE' &&
+                <Stack.Navigator initialRouteName="Tipo de conta" screenOptions={{headerShown:false}}>
+                      <Stack.Screen name={"Tipo de conta"} component={AccountTypeScreen}/>
+                      <Stack.Screen name={"Solicitar entrada"} component={AcessHouseScreen}/>
+                      <Stack.Screen name={"Criar nova casa"} component={AdminCadastrarCasaScreen}/>
+                      <Stack.Screen name={"Esperando"} component={AwaitingScreen}/>
                 </Stack.Navigator>
-              }
+                }
+
+                {userState[0].role == 'TENANT' || userState[0].role == 'ADMIN' &&
+                  <Stack.Navigator initialRouteName="Tabs" screenOptions={{headerShown:false}}>
+                    <Stack.Screen name={"Tabs"} component={Tabs}/>
+                    <Stack.Screen name={"Editar perfil"} component={EditProfileScreen}/>
+                </Stack.Navigator>
+                }
+
+              </UserContext.Provider>
             </AuthContext.Provider>
+          </EndPointsContext.Provider>
         </NavigationContainer>
   );
 }

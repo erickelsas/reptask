@@ -10,11 +10,11 @@ const AuctionPointsLine = (props) => {
             <Image source={{uri: props.user.url}} style={{width:'100%', height:'100%'}}/>
         </View>
         <View style={styles.textContainer}>
-            <Text style={styles.name} numberOfLines={1} >
+            <Text style={props.light?styles.nameLight:styles.name} numberOfLines={1} >
                 {props.user.name.split(' ')[0]}
             </Text>
-            <IconCommunity name={'star-four-points'} size={14} color={'#5A5A5A'}/>
-            <Text style={styles.points}>
+            <IconCommunity name={'star-four-points'} size={14} color={props.light?'#E9E9E9':'#5A5A5A'} style={{marginRight:'-8%'}}/>
+            <Text style={props.light?styles.pointsLight:styles.points}>
                 {props.user.points.toString().length > 1 ? props.user.points:`0${props.user.points}`} pontos
             </Text>
         </View>
@@ -77,11 +77,22 @@ const styles = StyleSheet.create({
         fontFamily:'Inter-Bold',
         fontSize:16,
         color:'#1E1E1E',
-        width:'33.33%'  
+        width:'45%'  
     },
     points:{
         fontFamily:'Inter-Medium',
         fontSize:13,
         color:'#474747',
+    },
+    nameLight:{
+        fontFamily:'Inter-Bold',
+        fontSize:16,
+        color:'#FFF',
+        width:'45%'  
+    },
+    pointsLight:{
+        fontFamily:'Inter-Medium',
+        fontSize:13,
+        color:'#E9E9E9',
     }
 })

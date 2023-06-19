@@ -1,8 +1,10 @@
 import { StyleSheet, Text, TouchableOpacity, View, TextInput, Keyboard } from 'react-native'
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import Notify from '../assets/notify.svg'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { UserContext } from '../contexts/UserContext'
+import { AuthContext } from '../contexts/AuthContext'
 
 const AcessHouseScreen = ({navigation}) => {
     const [firstNumber, setFirstNumber] = useState('');
@@ -16,44 +18,100 @@ const AcessHouseScreen = ({navigation}) => {
     const fourthInput = useRef();
     const fifthInput = useRef();
 
+    const userState = useContext(UserContext);
+    const authState = useContext(AuthContext);
+
+
+    const [error, setError] = useState(false);
+
     const onChangeFirst = (e) => {
-        setFirstNumber(e.value);
-        if(e.value != ''){
+        if(e.length > 1){
+            return
+        }
+
+        setFirstNumber(e);
+        if(e != ''){
             secondInput.current.focus();
         } 
     }
 
     const onChangeSecond = (e) => {
-        setSecondNumber(e.value);
-        console.log(e.value);
-        if(e.value != ''){
+        if(e.length > 1){
+            return
+        }
+
+        setSecondNumber(e);
+        console.log(e);
+        if(e != ''){
             thirdInput.current.focus();
         } 
     }
 
     const onChangeThird = (e) => {
-        setThirdNumber(e.value);
-        if(e.value != ''){
+        if(e.length > 1){
+            return
+        }
+
+        setThirdNumber(e);
+        if(e != ''){
             fourthInput.current.focus();
         }
     }
 
     const onChangeFourth = (e) => {
-        setFourthNumber(e.value);
-        if(e.value != ''){
+        if(e.length > 1){
+            return
+        }
+
+        setFourthNumber(e);
+        if(e != ''){
             fifthInput.current.focus();
         }
     }
 
     const onChangeFifth = (e) => {
-        setfifthNumber(e.value);
-        if(e.value != ''){
+        if(e.length > 1){
+            return
+        }
+
+        setfifthNumber(e);
+        if(e != ''){
             Keyboard.dismiss();
         }
     }
 
-    const onPressHandleVoltar = (e) => {
-        navigation.goBack(null)
+    const onPressHandleVoltar = () => {
+        navigation.goBack(null);
+    }
+
+    const onPressHandleEntrar = async () => {
+        const idString = `${firstNumber}${secondNumber}${thirdNumber}${fourthNumber}${fifthNumber}`;
+        const id = parseInt(idString);
+
+        const obj = {houseId: id, userId:userState[0].id}
+
+        console.log(obj);
+
+        const res = await fetch('https://reptaskbackapi.azurewebsites.net/api/Houses/askPermission', {
+            method: 'PUT',
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization':`Bearer ${authState[0]}`
+            },
+            body: JSON.stringify(obj),
+        });
+
+        const json = await res.json();
+
+
+        if(json.value.includes("Error") || json.value.includes('error')){
+            setError(true);
+            return; 
+        }
+
+        setError(false);
+
+        navigation.navigate("Esperando");
     }
 
   return (
@@ -71,18 +129,22 @@ const AcessHouseScreen = ({navigation}) => {
       </View>
       <View style={styles.card}>
         <View style={{display:'flex', justifyContent:'center', alignItems:'center', flexDirection:'row', gap: 12, width:'100%'}}>
-            <TextInput onChange={(e) => {onChangeFirst(e)}} value={firstNumber} keyboardType='numeric' style={styles.textInput} selectionColor={'#FFF'}/>
-            <TextInput ref={secondInput} onChange={(e) => {onChangeSecond(e)}} value={secondNumber} style={styles.textInput} keyboardType='numeric' selectionColor={'#FFF'}/>
-            <TextInput ref={thirdInput} onChange={(e) => {onChangeThird(e)}} value={thirdNumber} style={styles.textInput} keyboardType='numeric' selectionColor={'#FFF'}/>
-            <TextInput ref={fourthInput} onChange={(e) => {onChangeFourth(e)}} value={fourthNumber} style={styles.textInput} keyboardType='numeric' selectionColor={'#FFF'}/>
-            <TextInput ref={fifthInput} onChange={(e) => {onChangeFifth(e)}} value={fifthNumber} style={styles.textInput} keyboardType='numeric' selectionColor={'#FFF'}/>
+            <TextInput onChangeText={(e) => {onChangeFirst(e)}} value={firstNumber} keyboardType='numeric' style={styles.textInput} selectionColor={'#FFF'}/>
+            <TextInput ref={secondInput} onChangeText={(e) => {onChangeSecond(e)}} value={secondNumber} style={styles.textInput} keyboardType='numeric' selectionColor={'#FFF'}/>
+            <TextInput ref={thirdInput} onChangeText={(e) => {onChangeThird(e)}} value={thirdNumber} style={styles.textInput} keyboardType='numeric' selectionColor={'#FFF'}/>
+            <TextInput ref={fourthInput} onChangeText={(e) => {onChangeFourth(e)}} value={fourthNumber} style={styles.textInput} keyboardType='numeric' selectionColor={'#FFF'}/>
+            <TextInput ref={fifthInput} onChangeText={(e) => {onChangeFifth(e)}} value={fifthNumber} style={styles.textInput} keyboardType='numeric' selectionColor={'#FFF'}/>
         </View>
-        <TouchableOpacity style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <TouchableOpacity style={{display:'flex', justifyContent:'center', alignItems:'center'}} onPress={onPressHandleEntrar}>
             <View style={styles.button}>
                 <Text style={styles.textButton}>Solicitar acesso</Text>
             </View>
         </TouchableOpacity>
       </View>
+
+      {error && <Text style={{fontSize:16, color:'#FF0000', marginTop:'5%', textAlign:'center'}}>Houve um erro, tente novamente!</Text>}
+      {!error && <Text style={{fontSize:16, color:'#FF0000', marginTop:'5%', textAlign:'center'}}></Text>}
+
 
       <TouchableOpacity style={{position:'absolute', left:'7.5%', top:'7.5%', zIndex:2}} onPress={onPressHandleVoltar}>
         <Icon name='chevron-left' size={24} color="#AAAAAA"/>

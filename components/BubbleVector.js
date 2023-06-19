@@ -16,7 +16,7 @@ const BubbleVector = (props) => {
   return (
     <View style={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'flex-start', width:'100%'}}>
         {participantVectorWithThree && participantVectorWithThree.map((participant) => {
-           return (<ParticipantPhotoBubble key={participant.id} participant={participant}  index={count++}/>)
+           return (<ParticipantPhotoBubble key={participant.id} participant={participant}  isLight={props.isLight != undefined ? 'containerLight':'container'} index={count++}/>)
         })}
         
     {(props.participantVector.length - participantVectorWithThree.length > 0) && <NumberPhotoBubble number={props.participantVector.length - 3} index={3}/>}

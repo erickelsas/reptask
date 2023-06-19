@@ -1,25 +1,47 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import RequestModalScreen from '../screens/RequestModalScreen';
+import { UserContext } from '../contexts/UserContext';
+import IconCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
+
 
 const ProfileHeader = (props) => {
     const date = new Date();
+
+    const userState = useContext(UserContext);
+
+    const [modalVisible, setModalVisible] = useState(false)
+    const onPressHandle = () => {
+        setModalVisible(true);
+    }
+
+    const onPressImageHandle = () => {
+        props.navigation.navigate("Editar perfil");
+    }
+
   return (
+    <>
     <SafeAreaView style={styles.component}>
       <View style={styles.container}>
-        <TouchableOpacity style={styles.content}><Icon name={'gear'} size={28} color={'#000000'}/></TouchableOpacity>
+        <TouchableOpacity style={userState[0].role == "ADMIN" ? styles.content:{opacity:0}} onPress={onPressHandle}><Icon name={'user-plus'} size={26} color={'#202020'}/></TouchableOpacity>
         <View style={{...styles.content, ...styles.textContent}}>
-            <Text style={styles.textTitle} numberOfLines={1}>{props.user.name}</Text>
-            <Text>{`${date.toLocaleDateString()}`}</Text>
+            <Text style={styles.textTitle} numberOfLines={1}>{userState[0].nickname}</Text>
+            <View style={{display:'flex', justifyContent:'center', alignItems:'center', flexDirection:'row', gap:4}}>
+                <IconCommunity name={'star-four-points'} size={14} color={'#5A5A5A'}/>
+                <Text style={{fontFamily:'Inter-Medium', fontSize:13, color:'#5A5A5A'}}>{props.home == undefined ? `${userState[0].points} pontos` : `${date.toLocaleDateString()}`}</Text>
+            </View>
         </View>
         <View style={styles.content}>
-            <TouchableOpacity style={styles.photoContainer}>
+            <TouchableOpacity style={styles.photoContainer} onPress={onPressImageHandle}>
                 <Image source={{uri: props.user.url}} style={{width:'100%', height:'100%'}}/>
             </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
+    <RequestModalScreen modalConfig={{modalVisible, setModalVisible}}/>
+    </>
   )
 }
 
@@ -32,6 +54,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems:'center',
         width:'100%',
+        zIndex:2
     },
     container:{
         width:'100%',
