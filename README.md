@@ -1,11 +1,11 @@
-## reptask
+# Reptask
 
 Desenvolvido para matéria de Gerenciamento de Processo de Software do curso de Engenharia de Software da UTFPR de Cornélio Procópio.
 
-# Do que se trata?
+## Do que se trata?
 O projeto é aplicativo mobile feito com o front-end em React Native e o back-end em C# .NET, com o objetivo de gerenciar as atividades a serem realizadas em uma república, com um sistema de gamificação.
 
-# Histórias do projeto:
+## Histórias do projeto:
 
 -> Como usuário, quero ser capaz de criar uma conta e fazer login na plataforma, para que eu possa acessar a plataforma.<br /><br />
 -> Como um usuário mestre, quero ser capaz de criar uma nova casa, para que eu possa gerenciar as tarefas domésticas para uma nova residência.<br /><br />
