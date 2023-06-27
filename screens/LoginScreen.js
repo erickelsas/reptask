@@ -8,11 +8,15 @@ import { AuthContext } from '../contexts/AuthContext';
 import { useLogin } from '../hooks/useLogin';
 import { onChange } from 'react-native-reanimated';
 import { UserContext } from '../contexts/UserContext';
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { RepContext } from '../contexts/RepContext';
+import { AuctionContext } from '../contexts/AuctionContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = ({navigation, route}) => {
     const authState = useContext(AuthContext);
     const userState = useContext(UserContext);
+    const repState = useContext(RepContext);
+    const auctionState = useContext(AuctionContext);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -25,6 +29,15 @@ const LoginScreen = ({navigation, route}) => {
     const onChangePasswordHandle = (e) => {
         setPassword(e);
     }
+
+    const storeData = async (token, email) => {
+        try {
+          await AsyncStorage.setItem('token', token);
+          await AsyncStorage.setItem('email', email);
+        } catch (e) {
+            console.log('error');
+        }
+      };
 
     const onPressHandleEntrar= async () => {
         const loginObj = {email, password};
@@ -41,10 +54,13 @@ const LoginScreen = ({navigation, route}) => {
             setError(true);
             return;
         }
+
         
         const token = json.token
 
         authState[1](token);
+
+        storeData(token, email);
 
         res = await fetch(`https://reptaskbackapi.azurewebsites.net/api/Users/byemail/${email}`, {
             method: 'GET',
@@ -54,10 +70,28 @@ const LoginScreen = ({navigation, route}) => {
             }
         });
 
-        json = await res.json();
+        const user = await res.json();
 
-        userState[1](json);
+        userState[1](user);
+
+        const fetchHouse = async() => {
+            const res = await fetch(`https://reptaskbackapi.azurewebsites.net/api/Houses/${user.id}`, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            });
+        
+            const json = await res.json();
+    
+            repState[1](json);
+        }
+    
+        fetchHouse();
+
         setError(false);
+        setEmail('');
     }
 
     const onPressHandleRecuperar = (e) => {

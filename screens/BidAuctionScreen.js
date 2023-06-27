@@ -1,5 +1,5 @@
 import { Keyboard, StyleSheet, Text, View, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ProfileHeader from '../components/ProfileHeader'
 import ScreenBoard from '../components/ScreenBoard'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -9,15 +9,53 @@ import TaskNameAndMinimum from '../components/TaskNameAndMinimum'
 import InputText from '../components/InputText'
 import PatternButton from '../components/PatternButton'
 import RequestModalScreen from './RequestModalScreen'
+import { UserContext } from '../contexts/UserContext'
 
 const BidAuctionScreen = ({route, navigation}) => {
   const [minimum, setMinimum] = useState('');
+
+  const [auction, setAuction] = useState(route.params.auction)
+  const [task, setTask] = useState({});
+
+  const userState = useContext(UserContext);
+
+  useEffect(() => {
+    const taskFunction = async () => {
+      const res = await fetch(`https://reptaskbackapi.azurewebsites.net/api/Chores/${route.params.auction.idChore}`, {
+        method:'GET',
+        headers:{
+            'Content-Type':'application/json',
+            'Authorization':`Bearer ${authState[0]}`
+        }
+      });
+
+      const json = res.json();
+
+      setTask(json);
+    }
+
+    taskFunction();
+  })
+
   const onChangeTextHandle = (e) => {
-      setMinimum(e.value);
+      setMinimum(e);
   }
 
-  const onPressHandle = () => {
+  const onPressHandle = async() => {
+    const obj = {
+      userId: userState[0].id,
+      auctionId: route.params.auction.id,
+      points: minimum
+    }
 
+    const res = await fetch(`https://reptaskbackapi.azurewebsites.net/api/Auction/tied/${auction.id}`, {
+      method:'POST',
+      headers:{
+          'Content-Type':'application/json',
+          'Authorization':`Bearer ${authState[0]}`
+      },
+      body: JSON.stringify(obj)
+    });
   }
 
   return (
@@ -35,10 +73,10 @@ const BidAuctionScreen = ({route, navigation}) => {
                   style={{flex:1, width:'100%'}}>
                   <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={styles.block}>
-                        <TaskNameAndMinimum task={{name:'Tirar o lixo', minimum:15}}/>
+                        <TaskNameAndMinimum task={{name:task.name, minimum:auction.minPoints}}/>
                         <View style={styles.line}></View>
                         <View style={styles.form}>
-                            <InputText inputConfig={{secure:false, onChange:onChangeTextHandle, value:minimum, keyboardType:"numeric"}}/>
+                            <InputText inputConfig={{secure:false, onChange:onChangeTextHandle, value:route.param.auction.minPoints, keyboardType:"numeric"}}/>
                             <View style={{width:'60%', display:'flex', justifyContent:'center', alignItems:'center', marginLeft:'20%'}}>
                                 <PatternButton buttonConfig={{title:'Dar lance', onPressButton:onPressHandle}}></PatternButton>
                             </View>

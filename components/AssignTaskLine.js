@@ -9,7 +9,7 @@ const AssignTaskLine = (props) => {
         <View style={{display:'flex', justifyContent:'flex-start', alignItems:'center', gap:12, flexDirection:'row'}}>
             <ParticipantPhotoBubble participant={props.data.user} index={0}/>
             <Text style={{fontSize:15, fontFamily:'Inter-Bold'}}>
-                {props.data.user.name}
+                {props.data.user.nickname}
             </Text>
         </View>
         <TouchableOpacity onPress={() => {props.data.setChecked(props.data.user.id);}}>

@@ -3,22 +3,30 @@ import React, { useState } from 'react'
 import Star from   '../assets/images/star.svg'
 import PatternButton from './PatternButton'
 import ButtonAtribuirTask from './ButtonAtribuirTask'
+import AssignTaskModalScreen from '../screens/AssignTaskModalScreen';
 
 const TasksOfHome = (props) => {
-
     
+    const onPressHandle = () => {
+        setModalVisible(true);
+    }
+
+    const [modalVisible, setModalVisible] = useState(false);
   return (
-    <View style={styles.component}>
-        <View style={styles.container}>
-            <Text style={styles.titleTask}>{props.text.task}</Text>
-            <View style={styles.points}>
-            <Star></Star>
-            <Text style={styles.textpoints}> {props.text.points} pontos</Text>
+    <>
+        <View style={styles.component}>
+            <View style={styles.container}>
+                <Text style={styles.titleTask}>{props.task.name}</Text>
+                <View style={styles.points}>
+                    <Star></Star>
+                    <Text style={styles.textpoints}> {props.task.chorePoints} pontos</Text>
+                </View>
+                <ButtonAtribuirTask buttonConfig={{title:'Atribuir Task', onPress:onPressHandle}}/>
             </View>
-            <ButtonAtribuirTask buttonConfig={{title:'Atribuir Task'}}/>
+            <View style={styles.linha}/>
         </View>
-        <View style={styles.linha}/>
-    </View>
+        <AssignTaskModalScreen task={props.task} modalConfig={{modalVisible, setModalVisible}} moradores={props.moradores} flag={props.flag}/>
+    </>
   )
 }
 
@@ -41,13 +49,16 @@ const styles = StyleSheet.create({
     },
     titleTask:{
         fontFamily:'Inter-Bold',
-        fontSize:16,
+        fontSize:14,
         color: '#1E1E1E',
+        width:'33.33%',
+        overflow:'hidden'
     },
     points:{
         display: 'flex',
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        width:'30%'
     },
     textpoints:{
         fontFamily:'Inter-Medium',

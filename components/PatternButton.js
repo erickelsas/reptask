@@ -1,8 +1,7 @@
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 const PatternButton = (props) => {
-
   return (
     <View>
       <TouchableOpacity onPress={props.buttonConfig.onPress}>

@@ -1,7 +1,10 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import Star from   '../assets/images/star.svg'
+import TaskModalScreen from '../screens/TaskModalScreen';
+import FinalizeTaskModalScreen from '../screens/FinalizeTaskModalScreen'
+import DeleteTaskModalScreen from '../screens/DeleteTaskModalScreen'
 
 const icon = (iconName, size, color) => {
     return <Icon name={iconName} size={size} color={color}/>
@@ -12,28 +15,39 @@ const Tasks = (props) => {
     const onPressCheckbox = () => {
         setCheckbox(!checkbox);
     }
+
+    const onLongPressHandle = () => {
+        setModalVisible(true);
+    }
     
+    const [modalVisible, setModalVisible] = useState(false);
+
   return (
-    <View style={styles.component}>
-        <View style={styles.container}>
-            <View>
-                {icon('chess-king', 26, '#36457D')}
-            </View>
-            <Text style={checkbox ? styles.titleTaskCheck:styles.titleTask}>
-                {props.text.task}
-            </Text>
-            <View style={styles.points}>
-            <Star></Star>
-            <Text style={styles.textpoints}> {props.text.points} pontos</Text>
-            </View>
-            <TouchableOpacity onPress={onPressCheckbox}>
-                <View style={styles.checkbox}>
-                    {checkbox && <View style={styles.marked}/>}
+    <>
+        <View style={styles.component}>
+            <TouchableWithoutFeedback onLongPress={onLongPressHandle}>
+                <View style={styles.container}>
+                    <View>
+                        {icon('chess-king', 26, '#36457D')}
+                    </View>
+                    <Text style={checkbox ? styles.titleTaskCheck:styles.titleTask}>
+                        {props.task.name}
+                    </Text>
+                    <View style={styles.points}>
+                    <Star></Star>
+                    <Text style={styles.textpoints}> {props.task.chorePoints} pontos</Text>
+                    </View>
+                    <TouchableOpacity onPress={onPressCheckbox}>
+                        <View style={styles.checkbox}>
+                            {checkbox && <View style={styles.marked}/>}
+                        </View>
+                    </TouchableOpacity>
                 </View>
-            </TouchableOpacity>
+            </TouchableWithoutFeedback>
+            <View style={styles.linha}/>
         </View>
-        <View style={styles.linha}/>
-    </View>
+        <TaskModalScreen modalConfig={{modalVisible, setModalVisible}} task={props.task} navigation={props.navigation} flag={props.flag}/>
+    </>
   )
 }
 

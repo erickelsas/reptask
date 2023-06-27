@@ -1,17 +1,41 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import IconCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon from 'react-native-vector-icons/Ionicons'
+import ParticipantPhotoBubble from './ParticipantPhotoBubble'
+import { AuthContext } from '../contexts/AuthContext'
 
 const AuctionPointsLine = (props) => {
+    const [number, setNumber] = useState(0);
+    const authState = useContext(AuthContext);
+    const [isMinimum, setIsMinimum] = useState(false);
+
+    const onPress = async () => {
+        console.log(`https://reptaskbackapi.azurewebsites.net/api/Auction/tiebreaker/${props.user.id}/${props.auctionId}`);
+
+        await fetch(`https://reptaskbackapi.azurewebsites.net/api/Auction/tiebreaker/${props.user.id}/${props.auctionId}`, {method:"GET", headers:{
+            'Content-Type':'application/json',
+            'Authorization':`Bearer ${authState[0]}`
+        }});
+
+        setIsMinimum(false);
+        props.setShow(false);
+    }
+
+    useEffect(() => {
+        setNumber(props.count);
+        props.setCount(number + 1);
+
+        setIsMinimum(props.isMinimum);
+    }, [])
   return (
     <View style={styles.container}>
-        <View style={styles.photoContainer}>
-            <Image source={{uri: props.user.url}} style={{width:'100%', height:'100%'}}/>
-        </View>
+        <Text size={{fontSize:12, fontFamily:'Inter-Bold'}}>
+            {props.count}
+        </Text>
         <View style={styles.textContainer}>
             <Text style={props.light?styles.nameLight:styles.name} numberOfLines={1} >
-                {props.user.name.split(' ')[0]}
+                {props.user.nickname.split(' ')[0]}
             </Text>
             <IconCommunity name={'star-four-points'} size={14} color={props.light?'#E9E9E9':'#5A5A5A'} style={{marginRight:'-8%'}}/>
             <Text style={props.light?styles.pointsLight:styles.points}>
@@ -19,7 +43,7 @@ const AuctionPointsLine = (props) => {
             </Text>
         </View>
         <View style={styles.buttonContainer}>
-            {props.isMinimum ? <TouchableOpacity style={styles.buttonContent}>
+            {props.isMinimum ? <TouchableOpacity style={styles.buttonContent} onPress={onPress}>
                 <Icon name={'add'} size={28} color={'#E6E6E6'}/>
             </TouchableOpacity>:<></>}
         </View>

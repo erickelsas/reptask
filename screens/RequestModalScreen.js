@@ -37,7 +37,7 @@ const RequestModalScreen = (props) => {
             <PageTitle text={{title:'Solicitações', subtitle:'Solicitações de entrada pendentes'}}/>
             <View style={{height:'115%', display:'flex', justifyContent:'space-between', marginTop:'10%'}}>
                 <ScrollView style={{height:'100%', width:'100%'}} showsVerticalScrollIndicator={false}>
-                    {requests && requests.map((request) => (<RequestLine request={request} key={request.id} setRequests={setRequests} requests={requests}/>))}
+                    {requests && requests.map((request) => (<RequestLine request={request} key={request.id} setRequests={setRequests} requests={requests} flag={props.flag}/>))}
                 </ScrollView>
             </View>
         </View>

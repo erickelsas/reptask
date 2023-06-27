@@ -11,7 +11,7 @@ import AddTaskScreen from '../screens/AddTaskScreen';
 import BidAuctionScreen from '../screens/BidAuctionScreen';
 import RequestModalScreen from '../screens/RequestModalScreen';
 import { AuctionContext } from '../contexts/AuctionContext';
-import React, {useContext} from 'react';
+import React, {useContext} from 'react'
 import AwaitingAuctionScreen from './AwaitingAuctionScreen';
 
 const Tab = createBottomTabNavigator();
@@ -21,12 +21,11 @@ const icon = (iconName, size, color, colorSelected, focused) => {
 }
 
 const Tabs = () => {
-  const auctionState = useContext(AuctionContext);
   return (
 
-    <Tab.Navigator initialRouteName='Home' screenOptions
+    <Tab.Navigator initialRouteName='AdminHome' screenOptions
     ={{tabBarStyle:styles.menu, tabBarHideOnKeyboard:true}} >
-      <Tab.Screen name='Ranking' component={RankingScreen} options={{tabBarLabel:() => null, headerShown:false, tabBarIcon:({focused}) => (
+      <Tab.Screen name='Start Auction' component={RankingScreen} options={{tabBarLabel:() => null, headerShown:false, tabBarIcon:({focused}) => (
           <TouchableOpacity style={styles.menuIcon}>
          <View style={focused ? styles.backgroundIcon:{}}>
             {icon('rocket', 28, '#202020', '#FFF', focused ? true:false)}
@@ -34,7 +33,7 @@ const Tabs = () => {
           </TouchableOpacity>
 
       )}} />
-      <Tab.Screen name='Auction' component={AwaitingAuctionScreen} options={{tabBarLabel:() => null, headerShown:false, tabBarIcon:({focused}) => (
+     <Tab.Screen name='Auction' component={AwaitingAuctionScreen} options={{tabBarLabel:() => null, headerShown:false, tabBarIcon:({focused}) => (
           <TouchableOpacity style={styles.menuIcon}>
          <View style={focused ? styles.backgroundIcon:{}}>
             {icon('donate', 28, '#202020', '#FFF', focused? true:false)}
@@ -49,7 +48,7 @@ const Tabs = () => {
               </View>
             </TouchableOpacity>
       )}}/>
-      <Tab.Screen name='Home' component={Home} options={{tabBarLabel:() => null, headerShown:false, tabBarIcon:({focused}) => (
+      <Tab.Screen name='AdminHome' component={AdminHome} options={{tabBarLabel:() => null, headerShown:false, tabBarIcon:({focused}) => (
             <TouchableOpacity style={styles.menuIcon}>
               <View style={focused ? styles.backgroundIcon:{}}>
                 {icon('home', 28, '#202020', '#FFF', focused ? true:false)}  

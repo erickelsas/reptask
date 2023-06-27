@@ -18,6 +18,8 @@ const RequestLine = (props) => {
             });
         
             removeRequest();
+
+            props.flag[1](!props.flag[0]);
     }
 
     const onPressRecusarHandle = async () => {

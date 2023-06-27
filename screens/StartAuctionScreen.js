@@ -1,5 +1,5 @@
-import { KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, StyleSheet, Text, View} from 'react-native'
-import React, { useState } from 'react'
+import { KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, StyleSheet, Text, View, ScrollView} from 'react-native'
+import React, { useState, useEffect, useContext } from 'react'
 import ProfileHeader from '../components/ProfileHeader'
 import ScreenBoard from '../components/ScreenBoard'
 import PageTitle from '../components/PageTitle'
@@ -8,18 +8,73 @@ import InputText from '../components/InputText'
 import PatternButton from '../components/PatternButton'
 import BubbleVector from '../components/BubbleVector'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { UserContext } from '../contexts/UserContext'
+import { AuthContext } from '../contexts/AuthContext'
+import AuctionTask from '../components/AuctionTask'
+import { AuctionContext } from '../contexts/AuctionContext'
 
 const StartAuctionScreen = ({navigation}) => {
+    const userState = useContext(UserContext);
+    const authState = useContext(AuthContext);
+    const auctionState = useContext(AuctionContext);
+
     const [minimum, setMinimum] = useState('');
+    const [myTasks, setMyTasks] = useState([]);
+    const [moradores, setMoradores] = useState([]);
+
+    const checkbox = useState(0);
+
     const onChangeTextHandle = (e) => {
-        setMinimum(e.value);
+        setMinimum(e);
     }
 
-    const onPressHandle = () => {
+    const onPressHandle = async () => {
+        const obj = {
+            idChore:checkbox[0],
+            userIdMin: userState[0].id,
+            minPoints:parseInt(minimum),
+            idHouse:userState[0].houseId
+        }
 
+        const res = await fetch('https://reptaskbackapi.azurewebsites.net/api/Auction/startAuction/', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization':`Bearer ${authState[0]}`
+            },
+            body: JSON.stringify(obj),
+        });
+
+        navigation.navigate('Auction');
     }
 
-    const participantsVector = [{id:0, url: 'https://images.unsplash.com/photo-1676385901160-a86dc9ccdfe1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=486&q=80'}, {id:1, url:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80'}, {id:2, url:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=464&q=80'}, {id:3, url:'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80'}, ];
+    const fetchMyTasks = async () => {
+        const res = await fetch(`https://reptaskbackapi.azurewebsites.net/api/Chores/mychores/${userState[0].id}`, {method:'GET', headers:{
+            'Content-type':'application/json',
+            'Authorization':`Bearer ${authState[0]}`,
+        }
+        });
+
+        const json = await res.json();
+
+        setMyTasks(json);
+    }
+
+    const fetchMoradores = async () => {
+        const res = await fetch(`https://reptaskbackapi.azurewebsites.net/api/Users/house/${userState[0].houseId}`, {method:'GET', headers:{
+            'Content-type':'application/json',
+            'Authorization':`Bearer ${authState[0]}`,
+        }});
+
+        const json = await res.json();
+
+        setMoradores(json);
+    }
+
+    useEffect(() => {
+        fetchMyTasks();
+        fetchMoradores();
+    }, []);
 
   return (
     <>
@@ -33,18 +88,20 @@ const StartAuctionScreen = ({navigation}) => {
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
                         <>
                             <View style={styles.block}>
-                                <TaskNameAndMinimum task={{name:'Tirar o lixo', minimum:null}}/>
+                            <ScrollView  showsVerticalScrollIndicator={false} style={{width: '100%', height: '100%', marginBottom:'0%'}}>
+                                {myTasks.length == 0 ? <Text style={{textAlign:'center', paddingTop:'5%', fontFamily:'Inter-Medium', fontSize:13}}>Você ainda não tem tasks!</Text>:myTasks.map((task) => (<AuctionTask key={task.id} task={task} checkbox={checkbox}/>))}
+                            </ScrollView>
                                 <View style={styles.line}></View>
                                 <View style={styles.form}>
                                     <InputText inputConfig={{secure:false, onChange:onChangeTextHandle, value:minimum, keyboardType:"numeric"}}/>
-                                    <View style={{width:'60%', display:'flex', justifyContent:'center', alignItems:'center', marginLeft:'20%'}}>
-                                        <PatternButton buttonConfig={{title:'Iniciar leilão', onPressButton:onPressHandle}}></PatternButton>
+                                    <View style={checkbox[0] == 0 ? {display:'none'}:{}}>
+                                        <PatternButton buttonConfig={{title:'Iniciar leilão', onPress:onPressHandle}}></PatternButton>
                                     </View>
                                 </View>
                             </View>
                             <View style={styles.participantsContainer}>
                                 <Text style={styles.participantsTitle}>Participantes</Text>
-                                <BubbleVector participantVector={participantsVector}/>
+                                <BubbleVector participantVector={moradores}/>
                             </View>
                         </>
                     </TouchableWithoutFeedback>
