@@ -1,18 +1,68 @@
-import { ScrollView, StyleSheet, Text, View, SafeAreaView } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { ScrollView, StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native'
+import React, { useContext, useEffect, useState } from 'react'
 import ProfileHeader from '../components/ProfileHeader'
 import ScreenBoard from '../components/ScreenBoard'
 import PageTitle from '../components/PageTitle'
 import TaskNameAndMinimum from '../components/TaskNameAndMinimum'
 import AuctionPointsLine from '../components/AuctionPointsLine'
+import { AuthContext } from '../contexts/AuthContext'
+import { UserContext } from '../contexts/UserContext'
 
 const ResultAuctionScreen = ({ route, navigation }) => {
-  const [userVector, setUserVector] = useState([{id:0, name: 'Joaaooooooo', points: 50, url: 'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'}, {id:1, name: 'Maria Luísa', points: 40, url: 'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'},{id:2, name: 'Maria Luísa', points: 30, url: 'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'},{id:3, name: 'Maria Luísa', points: 20, url: 'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'},{id:4, name: 'Maria Luísa', points: 35, url: 'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'},{id:5, name: 'Maria Luísa', points: 5, url: 'https://images.unsplash.com/photo-1638620259400-d2044d2b01d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=540&q=80'}].sort((a,b) => a.points - b.points));
+  const authState = useContext(AuthContext);
+  const userState = useContext(UserContext);
+
+  const [auction, setAuction] = useState([]);
   const [userVectorWithoutMinimal, setUserVectorWithoutMinimal] = useState([]);
 
+  const [draw, setDraw] = useState([]);
+  const [rest, setRest] = useState([]);
+
+  const [count, setCount] = useState(0);
+
+  const [auctionId, setAuctionId] = useState(0);
+
+  const [show, setShow] = useState(false);
   useEffect(() => {
-    setUserVectorWithoutMinimal(userVector.slice(1));
-  }, [userVector])
+    setAuction(route.params.auction);
+
+    const restFunction = async () => {
+      const res = await fetch(`https://reptaskbackapi.azurewebsites.net/api/Auction/participants/${route.params.auction.id}`, {
+        method:'GET',
+        headers:{
+            'Content-Type':'application/json',
+            'Authorization':`Bearer ${authState[0]}`
+        }
+      });
+  
+      const json = await res.json();
+
+      setRest(json);
+      setAuctionId(route.params.auction.id);
+    }
+
+    restFunction();
+
+    if(route.params.status == 2 && userState[0].role == 'ADMIN'){
+      const drawFunction = async () => {
+        const res = await fetch(`https://reptaskbackapi.azurewebsites.net/api/Auction/tied/${route.params.auction.id}`, {
+          method:'GET',
+          headers:{
+              'Content-Type':'application/json',
+              'Authorization':`Bearer ${authState[0]}`
+          }
+      });
+        const json = await res.json();
+        
+        setDraw(json);
+        setRest(auction.slice(json.length, ));
+      }
+      
+      drawFunction();
+    }
+
+    setShow(route.params.show);
+  }, []);
 
   return (
     <>
@@ -23,10 +73,15 @@ const ResultAuctionScreen = ({ route, navigation }) => {
             <View style={styles.backgroundTask}>
               <TaskNameAndMinimum theme='dark' task={{name:'Tirar o lixo', minimum:15}}/>
             </View>
-            <ScrollView style={{width:'100%', marginTop:'15%', backgroundColor:'#E7E7E7', paddingLeft:'5%', paddingVertical:'4%', borderRadius: 8, elevation: 10, shadowColor: '#000'}} showsVerticalScrollIndicator={false}>
-              <AuctionPointsLine user={userVector[0]} isMinimum={true}/>
-              {userVectorWithoutMinimal && userVectorWithoutMinimal.map((user) => (<AuctionPointsLine key={user.id} user={user} isMinimum={false}/>))}
+            <ScrollView style={{width:'100%', marginTop:'15%', marginBottom:'10%', backgroundColor:'#E7E7E7', paddingLeft:'5%', paddingVertical:'4%', borderRadius: 8, elevation: 10, shadowColor: '#000'}} contentContainerStyle={{display:'flex', justifyContent:'center', width:'90%'}} showsVerticalScrollIndicator={false}>
+              {draw.length != 0 && draw.map((user, index) => (<AuctionPointsLine key={user.id} count={index + 1} setCount={setCount} user={user} isMinimum={true} auctionId={auctionId} setShow={setShow}/> ))}
+              {rest.length != 0 && rest.map((user, index) => (<AuctionPointsLine key={user.id} count={index + draw.length + 1} setCount={setCount} user={user} isMinimum={false} auctionId={auctionId}/>))}
             </ScrollView>
+            {show && <TouchableOpacity onPress={() => navigation.navigate("Iniciar leilão")} style={show ? styles.button:styles.NoneButton}>
+              <View style={{width:'60%', paddingVertical:8, paddingHorizontal:16, backgroundColor:'#36457D', borderRadius:6, elevation:10}}>
+                <Text style={{color:'#FFF', fontFamily:'Roboto-Bold'}}>Iniciar novo leilão</Text>
+              </View>
+            </TouchableOpacity>}
           </ScreenBoard>
       </SafeAreaView>
     </>
@@ -55,5 +110,11 @@ const styles = StyleSheet.create({
       elevation: 20,
       shadowColor: '#000',
       marginTop: '10%'
+    },
+    NoneButton:{
+      display:'none',
+    },
+    button:{
+      display:'flex'
     }
 })

@@ -5,11 +5,6 @@ const TasksTittle = (props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{props.text.title}</Text>
-      <TouchableOpacity>
-        <Text style={styles.button}>
-            Mostrar todas
-        </Text>
-      </TouchableOpacity>
     </View>
   )
 }
@@ -30,10 +25,5 @@ const styles = StyleSheet.create({
         textAlign:'center',
         fontSize:24,
         color:'#000000'
-    },
-    button:{
-        fontSize:14,
-        fontFamily:'Inter-Bold',
-        color:'#36457D',
     },
 })

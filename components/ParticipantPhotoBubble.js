@@ -20,8 +20,12 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         borderWidth: 2,
         borderColor: '#36457D',
+        backgroundColor:'#D9D9D9',
         shadowColor:'#000',
         elevation:10,
+        display:'flex',
+        justifyContent:'center',
+        alignItems:'center'
     },
     containerLight:{
       height: 60,

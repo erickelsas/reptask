@@ -1,13 +1,33 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import ModalTemplateScreen from './ModalTemplateScreen'
-import PatternButton from '../components/PatternButton'
 import IconCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
 import PatternModalButton from '../components/PatternModalButton'
+import { AuthContext } from '../contexts/AuthContext'
+import { UserContext } from '../contexts/UserContext'
 
 const FinalizeTaskModalScreen = (props) => {
-    const onPressConcluirHandle = () => {
+    const authState = useContext(AuthContext);
+    const userState = useContext(UserContext);
 
+    const onPressConcluirHandle = async () => {
+        const obj = {
+            choreId:props.task.id,
+            userId:userState[0].id
+        }
+
+        await fetch('https://reptaskbackapi.azurewebsites.net/api/Chores/completeChore', {
+            method:"PUT",
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':`Bearer ${authState[0]}`
+            },
+            body: JSON.stringify(obj)
+        });
+
+        props.flag[1](props.flag[0] == true ? false:true);
+
+        props.modalConfig.setModalVisible(false);
     }
 
   return (
@@ -15,12 +35,12 @@ const FinalizeTaskModalScreen = (props) => {
         <View>
             <View style={styles.textContainer}>
                     <Text style={styles.title}>
-                        Lavar a louça
+                        {props.task.name}
                     </Text>
                     <View style={styles.points}>
                         <IconCommunity name={'star-four-points'} size={14} color={'#5A5A5A'}/>
                         <Text style={styles.pointsText}>
-                            15 pontos
+                            {props.task.chorePoints}
                         </Text>
                     </View>
                 </View>

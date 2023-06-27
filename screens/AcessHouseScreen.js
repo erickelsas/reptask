@@ -89,9 +89,7 @@ const AcessHouseScreen = ({navigation}) => {
         const id = parseInt(idString);
 
         const obj = {houseId: id, userId:userState[0].id}
-
-        console.log(obj);
-
+        
         const res = await fetch('https://reptaskbackapi.azurewebsites.net/api/Houses/askPermission', {
             method: 'PUT',
             headers: {

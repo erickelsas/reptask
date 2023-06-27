@@ -1,5 +1,5 @@
 import { KeyboardAvoidingView, StyleSheet, Text, TouchableWithoutFeedback, Keyboard, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import ProfileHeader from '../components/ProfileHeader'
 import ScreenBoard from '../components/ScreenBoard'
 import PageTitle from '../components/PageTitle'
@@ -7,26 +7,52 @@ import InputText from '../components/InputText'
 import PatternButton from '../components/PatternButton'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Menu from '../components/Menu'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { UserContext } from '../contexts/UserContext'
+import { AuthContext } from '../contexts/AuthContext'
+import RNRestart from 'react-native-restart';
 
 const EditTaskScreen = ({route, navigation}) => {
-  const [name, setName] = useState('');
-  const [url, setUrl] = useState('0');
+  const userState = useContext(UserContext);
+  const authState = useContext(AuthContext);
+
+  const [name, setName] = useState(userState[0].nickname);
+  const [url, setUrl] = useState(userState[0].url);
 
   const onChangeNome = (e) => {
-    setName(e.value);
+    setName(e);
   } 
 
   const onChangeUrl = (e) => {
-    setUrl(e.value);
+    setUrl(e);
   } 
 
 
-  const onPressEdit = (e) => {
+  const onPressEdit = async () => {
+    if(name != ''){
+      const obj = {
+        ...userState[0],
+        url,
+        nickname: name
+      }
+  
+      await fetch(`https://reptaskbackapi.azurewebsites.net/api/Users`, {method:'PUT', headers:{
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${authState[0]}`
+      },
+        body: JSON.stringify(obj)
+      });
+    }
 
+    navigation.goBack();
   }
 
-  const onPressPass = (e) => {
+  const onPressPass = async (e) => {
+    await AsyncStorage.clear();
 
+    setTimeout(() => {
+      RNRestart.restart();
+    }, 1000);
   }
 
   return (
@@ -43,8 +69,8 @@ const EditTaskScreen = ({route, navigation}) => {
                   <View style={styles.form}>
                     <InputText inputConfig={{secure:false, onChange:onChangeNome}}>Apelido/Nome</InputText>
                     <InputText inputConfig={{secure:false, onChange:onChangeUrl}}>URL da Foto</InputText>
-                      <PatternButton buttonConfig={{title:'Editar perfil', onPressButton:onPressEdit}}/>
-                      <PatternButton buttonConfig={{title:'Mudar senha', onPressButton:onPressPass}}/>
+                      <PatternButton buttonConfig={{title:'Editar perfil', onPress:onPressEdit}}/>
+                      <PatternButton buttonConfig={{title:'Deslogar', onPress:onPressPass, isRed:true}}/>
                     </View>
                   </View>
               </TouchableWithoutFeedback>
