@@ -5,6 +5,15 @@ Desenvolvido para matéria de Gerenciamento de Processo de Software do curso de 
 ## Do que se trata?
 O projeto é aplicativo mobile feito com o front-end em React Native e o back-end em C# .NET, com o objetivo de gerenciar as atividades a serem realizadas em uma república, com um sistema de gamificação.
 
+## Como executar o projeto?
+1. Instale o node e o npm
+2. Baixe o projeto
+3. Abra a CLI na pasta root
+4. Instale o projeto na sua máquina (npm install)
+5. Instale o Expo Go no aparalho móvel
+6. Execute o comando 'npx expo start' na CLI
+7. Escaneie o QR Code gerado
+
 ## Histórias do projeto:
 
 -> Como usuário, quero ser capaz de criar uma conta e fazer login na plataforma, para que eu possa acessar a plataforma.<br /><br />
